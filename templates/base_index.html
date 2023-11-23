@@ -1,0 +1,79 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Inicial - Draconato</title>
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    <link rel="https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div class="area-total">
+      <div class="cabecalho">
+        <div class="cabecalho-logo">
+          <a href=""><img class="logo" src="{% static 'logo/logo.svg' %}" alt="" /></a>
+        </div>
+
+        <div class="cabecalho-nav">
+          <a style="color: #D9C179;" href="">Página Inicial</a>
+          <a href="">Minhas Campanhas</a>
+        </div>
+
+        <div class="cabecalho-user">
+          <a class="notificacoes" href=""><i class="bi bi-bell-fill"></i></a>
+          <a class="botao" href="">
+            {{ request.user }}
+            <i class="bi bi-person-circle"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="corpo">
+        <div class="area-ext">
+          <div class="area-med">
+            <div class="area-camp">
+              <div class="area-camp-title">
+                <i class="bi bi-clock-fill"></i>
+                <h3 class="title-1">Campanhas</h3>
+                <h3 class="title-2">Recentes</h3>
+              </div>
+              <div class="camp-content">
+                <a href="" class="camp">
+                  <img src="https://media.tenor.com/QPWvP5QACHoAAAAM/shabadaba-gooba-like-a-meeboo.gif" alt="" />
+                  <h3>Mina Perdida de Phandelver</h3>
+                </a>
+                <a href="" class="camp">
+                  <img src="https://media.tenor.com/QPWvP5QACHoAAAAM/shabadaba-gooba-like-a-meeboo.gif" alt="" />
+                  <h3>Mina Perdida de Phandelver</h3>
+                </a>
+                <a href="" class="camp">
+                  <img src="https://media.tenor.com/QPWvP5QACHoAAAAM/shabadaba-gooba-like-a-meeboo.gif" alt="" />
+                  <h3>Mina Perdida de Phandelver</h3>
+                </a>
+                <a href="" class="camp">
+                  <img src="https://media.tenor.com/QPWvP5QACHoAAAAM/shabadaba-gooba-like-a-meeboo.gif" alt="" />
+                  <h3>Mina Perdida de Phandelver</h3>
+                </a>
+              </div>
+            </div>
+            <div class="area-botao">
+              <a href="" class="botao-vermais">Ver Todas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <h3>@7BiTS</h3>
+      </footer>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@100;500;700&family=Poppins&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body,
+html {
+    margin: 0;
+    height: 100%;
+}
+
+.area-total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #171717;
+}
+
+.area-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 20%;
+}
+
+.area-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 70%;
+}
+
+.area-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 10%;
+    color: white;
+    font-size: 15px;
+}
+
+.login {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: max-content;
+    height: max-content;
+    padding: 30px;
+    background-color: #262424;
+    border-radius: 25px;
+}
+
+.possui-conta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: #262424;
+    color: #4C4B4B;
+    font-size: 12px;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.possui-conta .c2 {
+    margin-left: 5px;
+    color: #D9D179;
+    margin-top: -15px;
+}
+
+.possui-conta .c3 {
+    margin: 0;
+    color: #D9D179;
+}
+
+.login h2 {
+    color: #D9D179;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.campos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.campos input {
+    width: 230px;
+    height: 30px;
+    color: white;
+    border-radius: 25px;
+    border: none;
+    padding: 5px;
+    text-align: center;
+    font-size: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #171717;
+    margin-bottom: 15px;
+}
+
+.manter {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    align-content: center;
+    font-size: 12px;
+    color: #4C4B4B;
+}
+
+.manter p {
+    margin-left: 5px;
+}
+
+.campos .manter input {
+    width: 15px;
+    background-color: #171717;
+    border-color: #4C4B4B;
+    border-width: 2px;
+}
+
+.campos .entrar {
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #171717;
+    font-weight: 700;
+    border-radius: 25px;
+    border-style: none;
+    background-color: #D9D179;
+}

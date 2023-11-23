@@ -1,0 +1,18 @@
+from django.shortcuts import render
+from .models import *
+from .forms import *
+from django.views.generic import ListView,CreateView,DeleteView,DetailView, UpdateView,TemplateView
+from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.contrib.messages import views
+
+class Listar(ListView):
+    template_name = "manager/index.html"
+    model = Campanha
+    context_object_name = 'campanhas'
+
+class TesteLogin(TemplateView):
+    template_name = "manager/login.html"
+
+# Create your views here.
