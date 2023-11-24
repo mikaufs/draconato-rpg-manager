@@ -15,4 +15,7 @@ class Listar(ListView):
 class TesteLogin(TemplateView):
     template_name = "manager/login.html"
 
+class TesteDashboard(TemplateView):
+    template_name = "manager/dashboard.html"
+
 # Create your views here.
