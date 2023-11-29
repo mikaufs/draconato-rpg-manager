@@ -1,2 +1,10 @@
 {% extends 'base_index.html' %}
 
+{% block campanhas %}
+  {% for campanha in campanhas %}
+    <a href="" class="camp">
+      <img src="{{campanha.imagem.url}}" alt="" />
+      <h3>{{campanha.nome}}</h3>
+    </a>
+  {% endfor %}
+{% endblock %}

@@ -8,7 +8,7 @@ class Sistema(models.Model):
         return self.nome
 
 class Campanha(models.Model):
-    imagem = models.ImageField(upload_to='images/campanha')
+    imagem = models.ImageField(upload_to='campanha/images/')
     nome = models.CharField(max_length=100)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE)
     data_inicio = models.DateField(auto_now_add=True)

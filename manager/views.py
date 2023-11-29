@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib.messages import views
 
-class Listar(ListView):
+class Listar(ListView, LoginRequiredMixin):
     template_name = "manager/index.html"
     model = Campanha
     context_object_name = 'campanhas'
@@ -16,6 +16,6 @@ class TesteLogin(TemplateView):
     template_name = "manager/login.html"
 
 class TesteDashboard(TemplateView):
-    template_name = "manager/dashboard.html"
+    template_name = "manager/dashboard/dashboard.html"
 
 # Create your views here.
