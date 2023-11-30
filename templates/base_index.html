@@ -7,15 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Página Inicial - Draconato</title>
 
-    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
-
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon" />
 
     <link rel="https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   </head>
   <body>
     <div class="area-total">
@@ -30,11 +39,16 @@
         </div>
 
         <div class="cabecalho-user">
-          <a class="notificacoes" href=""><i class="bi bi-bell-fill"></i></a>
-          <a class="botao" href="">
-            {{ request.user }}
-            <i class="bi bi-person-circle"></i>
-          </a>
+          <a class="notificacoes" href="#"><i class="bi bi-bell-fill"></i></a>
+          <div class="btn-group">
+            <button class="botao" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user }} <i class="bi bi-person-circle"></i></button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="#">Meu Perfil</a>
+              <a class="dropdown-item" href="#">Configurações</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'account_logout' %}">Sair</a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -48,10 +62,9 @@
                 <h3 class="title-2">Recentes</h3>
               </div>
               <div class="camp-content">
-                
                 {% block campanhas %}
-                
-                {% endblock campanhas %}
+
+                {% endblock %}
               </div>
             </div>
             <div class="area-botao">
@@ -65,5 +78,4 @@
       </footer>
     </div>
   </body>
-
 </html>

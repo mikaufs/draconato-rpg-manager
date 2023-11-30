@@ -75,12 +75,32 @@
     font-size: 15px;
     font-weight: 700;
     color: #171717;
+    border-style: none;
 }
 
 .cabecalho-user .botao i{
     background-color: transparent;
     font-size: 30px;
     margin-left: 10px;
+}
+
+.dropdown-menu{
+    border-radius: 25px;
+    background-color:#262424;
+    border-top-right-radius: 0px;
+    width: 30px;
+}
+
+.dropdown-item{
+    border-radius: 25px;
+    color:#636363;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.dropdown-item:hover{
+    background-color:transparent;
+    color: #D9D179;
 }
 
 /* Conteúdo: */
