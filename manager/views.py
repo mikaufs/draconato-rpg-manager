@@ -12,7 +12,7 @@ class Listar(LoginRequiredMixin, ListView):
     model = Campanha
     context_object_name = 'campanhas'
 
-class TesteLogin(TemplateView):
+class Login(TemplateView):
     template_name = "manager/login.html"
 
 class TesteDashboard(TemplateView):

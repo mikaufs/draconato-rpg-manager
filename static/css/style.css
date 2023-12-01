@@ -78,6 +78,10 @@
     border-style: none;
 }
 
+.cabecalho-user .botao:active{
+    background-color: #cac15e;
+}
+
 .cabecalho-user .botao i{
     background-color: transparent;
     font-size: 30px;
@@ -98,10 +102,18 @@
     font-size: 13px;
 }
 
+.dropdown-item i {
+    background-color: transparent;
+    font-size: 15px;
+    margin-right: 5px;
+}
+
 .dropdown-item:hover{
     background-color:transparent;
     color: #D9D179;
 }
+
+
 
 /* Conteúdo: */
 

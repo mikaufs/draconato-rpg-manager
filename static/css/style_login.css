@@ -111,6 +111,10 @@ html {
     margin-bottom: 15px;
 }
 
+.campos input:focus{
+    outline: none;
+}
+
 .manter {
     display: flex;
     justify-content: left;

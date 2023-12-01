@@ -43,10 +43,10 @@
           <div class="btn-group">
             <button class="botao" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user }} <i class="bi bi-person-circle"></i></button>
             <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="#">Meu Perfil</a>
-              <a class="dropdown-item" href="#">Configurações</a>
+              <a class="dropdown-item" href="#"><i class="bi bi-person-fill"></i>Meu Perfil</a>
+              <a class="dropdown-item" href="#"><i class="bi bi-gear-fill"></i>Configurações</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{% url 'account_logout' %}">Sair</a>
+              <a style="color: #963838;" class="dropdown-item" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-left"></i>Sair</a>
             </div>
           </div>
         </div>
