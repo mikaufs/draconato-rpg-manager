@@ -25,17 +25,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    <script src="https://kit.fontawesome.com/25a514775a.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="area-total">
       <div class="cabecalho">
         <div class="cabecalho-logo">
-          <a href=""><img class="logo" src="{% static 'logo/logo.svg' %}" alt="" /></a>
+          <a href="{% url 'index' %}"><img class="logo" src="{% static 'logo/logo.svg' %}" alt="" /></a>
         </div>
 
         <div class="cabecalho-nav">
-          <a style="color: #D9C179;" href="">Página Inicial</a>
-          <a href="">Minhas Campanhas</a>
+          <a style="color: #D9C179;" href="{% url 'index' %}">Página Inicial</a>
+          <a href="{% url 'minhascampanhas' %}">Minhas Campanhas</a>
         </div>
 
         <div class="cabecalho-user">
@@ -54,23 +56,9 @@
 
       <div class="corpo">
         <div class="area-ext">
-          <div class="area-med">
-            <div class="area-camp">
-              <div class="area-camp-title">
-                <i class="bi bi-clock-fill"></i>
-                <h3 class="title-1">Campanhas</h3>
-                <h3 class="title-2">Recentes</h3>
-              </div>
-              <div class="camp-content">
-                {% block campanhas %}
+          {% block area %}
 
-                {% endblock %}
-              </div>
-            </div>
-            <div class="area-botao">
-              <a href="" class="botao-vermais">Ver Todas</a>
-            </div>
-          </div>
+          {% endblock %}
         </div>
       </div>
       <footer>

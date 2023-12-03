@@ -138,9 +138,21 @@
     border-radius: 25px;
 }
 
+.area-med2{
+    width: 100%;
+    background-color: #262424;
+    padding: 20px;
+    border-radius: 25px;
+}
+
 .area-camp {
     width: 100%;
     background-color: #171717;
+}
+
+.area-camp2 {
+    width: 100%;
+    background-color: #262424;
 }
 
 .area-camp-title{
@@ -153,8 +165,27 @@
     align-content: center;
 }
 
+.area-camp-title2{
+    background-color: #262424;
+    height: 40px;
+    margin: 20px;
+    margin-bottom: 0px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    align-content: center;
+}
+
 .area-camp-title i{
-    color: #4C4B4B;
+    color: #D9D179;
+    font-size: 30px;
+    margin-right: 10px;
+    margin-top: -5px;
+}
+
+.area-camp-title2 i{
+    background-color: #262424;
+    color: #D9D179;
     font-size: 30px;
     margin-right: 10px;
     margin-top: -5px;
@@ -166,24 +197,189 @@
     font-weight: 700;
 }
 
-.title-1{
-    color: #4C4B4B;
-    font-weight: 500;
+.area-camp-title2 h3{
+    background-color: #262424;
+    font-size: 20px;
+    margin-right: 5px;
+    font-weight: 700;
 }
 
-.title-2{
+.title-1{
     color: #D9D179;
-    text-decoration: underline;
+    font-weight: 500;
 }
 
 .camp-content{
     margin-top: 0px;
     margin: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     align-items: flex-start;
     align-content: center;
+}
+
+.camp-content2{
+    background-color: #262424;
+    margin-top: 0px;
+    margin: 20px;
+}
+
+.area-search{
+    margin: 20px;
+    background-color: #262424;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 50px;
+}
+
+.pesquisa{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 25px;
+    width: 70%;
+}
+
+.pesquisa .btn-pesquisa{
+    background-color: transparent;
+    border-style: none;
+    color: #4C4B4B;
+    font-size: 20px;
+    width: 70px;
+    height: 40px;
+}
+
+.pesquisa input{
+    outline: none;
+    color: #D9D179;
+    border-style: none;
+    width: 100%;
+    height: 40px;
+    border-radius: 25px;
+}
+
+.btn-criarcamp{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #D9D179;
+    height: 40px;
+    width: 22%;
+    margin-right: 40px;
+    color: #262424;
+    border-radius: 25px;
+    text-decoration: none;
+}
+
+.mcamp{
+    background-color: #262424;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.img-camp{
+    background-color: transparent;
+}
+
+.img-camp img{
+    width: 200px;
+    height: 200px;
+    border-radius: 25px;
+}
+
+.area-mcamp{
+    height: 100%;
+    width: 78%;
+    border-radius: 25px;
+}
+
+.info-mcamp{
+    background-color: transparent;
+    margin: 30px;
+}
+
+.info-mcamp-2{
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    background-color: transparent;
+    justify-content: space-between;
+}
+
+.info-mcamp a{
+    text-decoration: none;
+    color: #D9D179;
+    font-size: 22px;
+}
+
+.jogadores{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    margin-left: 15px;
+}
+
+.jogadores img{
+    height: 40px;
+    width: 40px;
+    border-radius: 25px;
+    margin-left: -15px;
+}
+
+.info-mestre, .info-acesso{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    color: #585757;
+    font-size: 15px;
+}
+
+.info-mcamp h3, .info-acesso h3{
+    font-size: 15px;
+    margin: 0px;
+    margin-left: 10px;
+}
+
+.iniciar-camp{
+    background-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #D9D179;
+    border-radius: 25px;
+    height: 35px;
+}
+
+.iniciar-camp:hover{
+    background-color: #D9D179;
+}
+
+.iniciar-camp a:hover{
+    color: #262424;
+}
+
+.iniciar-camp a{
+    text-decoration: none;
+    background-color: transparent;
+    color:#D9D179;
+
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .camp {
@@ -239,6 +435,18 @@
     padding-bottom: 10px;
     border-radius: 25px;
     background-color: #D9D179;
+}
+
+.erro-h2{
+    margin-top: 30px;
+    font-size: 30px;
+    color: #4C4B4B;
+}
+
+.erro-h3{
+    font-size: 20px;
+    color: #4C4B4B;
+    margin-bottom: 30px;
 }
 
 footer{

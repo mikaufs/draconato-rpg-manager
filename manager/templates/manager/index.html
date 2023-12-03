@@ -1,10 +1,38 @@
 {% extends 'base_index.html' %}
 
-{% block campanhas %}
-  {% for campanha in campanhas %}
-    <a href="{% url 'dashboard' campanha.pk %}" class="camp">
-      <img src="{{campanha.imagem.url}}" alt="" />
-      <h3>{{campanha.nome}}</h3>
+{% block area %}
+
+<div class="area-med">
+  <div class="area-camp">
+    <div class="area-camp-title">
+      <i class="bi bi-clock-fill"></i>
+      <h3 class="title-1">Campanhas Recentes</h3>
+    </div>
+    <div class="camp-content">
+      {% if campanhas %}
+        {% for campanha in campanhas %}
+          <a href="{% url 'dashboard' campanha.pk %}" class="camp">
+            <img src="{{ campanha.imagem.url }}" alt="" />
+            <h3>{{ campanha.nome }}</h3>
+          </a>
+        {% endfor %}
+      {% else %}
+        <div>
+          <h2 class="erro-h2">Ops...</h2>
+          <h3 class="erro-h3">Você não faz parte de nenhuma campanha :(</h3>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="area-botao">
+    <a href="" class="botao-vermais">
+      {% if campanhas %}
+        Minhas Campanhas
+      {% else %}
+        Ver Campanhas
+      {% endif %}
     </a>
-  {% endfor %}
+  </div>
+</div>
+
 {% endblock %}
