@@ -12,6 +12,7 @@ class Campanha(models.Model):
     nome = models.CharField(max_length=100)
     sistema = models.ForeignKey(Sistema, on_delete=models.CASCADE)
     data_inicio = models.DateField(auto_now_add=True)
+    descricao = models.TextField(blank=True)
     mestre = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     jogador = models.ManyToManyField(get_user_model(), related_name='campanhas_participantes', blank=True)
 

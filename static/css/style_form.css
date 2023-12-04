@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@100;500;700&family=Poppins&display=swap');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body,
+html {
+    margin: 0;
+    height: 100%;
+}
+
+.area-total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #171717;
+}
+
+.area-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 90%;
+}
+
+.area-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 10%;
+    color: white;
+    font-size: 15px;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    width: max-content;
+    height: max-content;
+    padding: 30px;
+    background-color: #262424;
+    border-radius: 25px;
+    height: 90%;
+}
+
+.cabecalho {
+    height: 10%;
+}
+
+.cabecalho h2 {
+    color: #D9D179;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 90%;
+}
+
+.c1 {
+    margin: 30px;
+    width: max-content;
+    font-weight: 700;
+    color: #636363;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.c1 input, .dropdown-toggle , .c1 textarea {
+    width: 300px;
+    height: 30px;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    padding: 5px;
+    text-align: left;
+    font-size: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #171717;
+    margin-bottom: 15px;
+}
+
+.c1 img, .c1 #selectedImage{
+    width: 200px;
+    height: 200px;
+}
+
+.label-img{
+    margin-top: 15px;
+    color: #636363;
+    text-align: center;
+    padding: 6px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #636363;
+    border-radius: 20px;
+
+}
+
+.bs-caret{
+    display: none;
+}
+
+.c1 textarea{
+    height: 150px;
+    resize: none;
+}
+
+.c1 input:focus, .c1 textarea:focus{
+    outline: none;
+}
+
+.c1 img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    background-color: #262424;
+    border-radius: 20px;
+    text-align: center;
+    width: 250px;
+    height: 250px;
+}
+
+.botao{
+    color: #171717;
+    height: 40px;
+    width: 200px;
+    border-style: none;
+    border-radius: 20px;
+    background-color: #D9D179;
+}
+
+.btn-cancelar{
+    margin-top: 5px;
+    text-align: center;
+    color: #636363;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: underline;
+}

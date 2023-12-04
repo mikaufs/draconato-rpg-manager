@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import *
-from .forms import *
+from .models import Campanha, Anotacao, Personagem
+from .forms import CampanhaForm
 from django.views.generic import ListView,CreateView,DeleteView,DetailView, UpdateView,TemplateView
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -22,11 +22,22 @@ class ListarInicio(LoginRequiredMixin, ListView):
     template_name = "manager/index.html"
     model = Campanha
     context_object_name = 'campanhas'
+    paginate_by = '4'
 
     def get_queryset(self):
         user = self.request.user
         queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
         return queryset
+    
+class CampanhaCreateView(CreateView):
+    model = Campanha
+    form_class = CampanhaForm
+    template_name = "manager/forms/form_campanha.html"
+    success_url = reverse_lazy("minhascampanhas")
+
+    def form_valid(self, form):
+        form.instance.mestre = self.request.user
+        return super().form_valid(form)
 
 class TesteDashboard(TemplateView):
     template_name = "manager/dashboard/dashboard.html"

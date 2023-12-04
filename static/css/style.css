@@ -259,6 +259,7 @@
     border-style: none;
     width: 100%;
     height: 40px;
+    font-size: 20px;
     border-radius: 25px;
 }
 
@@ -380,6 +381,26 @@
     padding: 10px;
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.paginator{
+    background-color: transparent;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.paginator a{
+    color: #262424;
+    text-decoration: none;
+    border-radius: 25px;
+    background-color: #D9D179;
+    padding: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .camp {

@@ -7,7 +7,7 @@ class CampanhaAdmin (admin.ModelAdmin):
 
 @admin.register(Campanha)
 class CampanhaAdmin (admin.ModelAdmin):
-    list_display = ['nome', 'sistema', 'data_inicio', 'mestre']
+    list_display = ['nome', 'sistema', 'data_inicio', 'descricao', 'mestre']
 
 @admin.register(Anotacao)
 class AnotacaoAdmin (admin.ModelAdmin):

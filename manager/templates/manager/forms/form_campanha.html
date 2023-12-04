@@ -1,0 +1,40 @@
+{% extends 'base_form.html' %}
+
+{% block content %}
+  <div class="form">
+    <div class="cabecalho">
+      <h2>Criação de Campanha</h2>
+    </div>
+    <div class="conteudo">
+      <form method="post" enctype="multipart/form-data" action="{% url 'campanha-criar' %}">
+        {% csrf_token %}
+        <div class="c1">
+          <label for="id_nome">Título:</label>
+          {{ form.nome }}
+
+          <label for="id_mestre">Mestre:</label>
+          {{ form.mestre }}
+
+          <label for="id_sistema">Sistema:</label>
+          {{ form.sistema }}
+
+          <label for="id_descricao">Descrição:</label>
+          {{ form.descricao }}
+
+          <label for="id_jogador">Jogadores:</label>
+          {{ form.jogador }}
+        </div>
+        
+        <div class="c1">
+          <img id="selectedImage" src="https://i.ibb.co/pzkH6gc/placeholder.png" alt="example placeholder" />
+{{form.imagem}}
+
+          <hr />
+
+          <button type="submit" class="botao">Criar Campanha</button>
+          <a class="btn-cancelar" href="">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

@@ -9,76 +9,47 @@
       </div>
       <div class="area-search">
         <div class="pesquisa">
-            <button class="btn-pesquisa">
-                <i class="bi bi-search"></i>
-            </button>
-            <input type="text">
+          <button class="btn-pesquisa"><i class="bi bi-search"></i></button>
+          <input type="text" />
         </div>
 
-        <a class="btn-criarcamp" href="">
-            Criar Campanha
-        </a>
-
+        <a class="btn-criarcamp" href="{% url 'campanha-criar' %}">Criar Campanha</a>
       </div>
       <div class="camp-content2">
-        <div class="mcamp">
-          <a class="img-camp" href=""><img src="https://imageproxyb.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/f8eaaee016bd36003c1141edc3f27a327a762e6183599c0df67aedecc32d403c_1.jpg" alt="" /></a>
-          <div class="area-mcamp">
-            <div class="info-mcamp">
-              <a href="">Indo Ali Adventures</a>
-              <div class="info-mestre">
-                <i class="fa-solid fa-crown"></i>
-                <h3>João Pedro</h3>
+        {% for campanha in campanhas %}
+          <div class="mcamp">
+            <a class="img-camp" href=""><img src="{{ campanha.imagem.url }}" alt="" /></a>
+            <div class="area-mcamp">
+              <div class="info-mcamp">
+                <a href="">{{ campanha.nome }}</a>
+                <div class="info-mestre">
+                  <i class="fa-solid fa-crown"></i>
+                  <h3>{{ campanha.mestre }}</h3>
+                </div>
+                <div class="info-acesso">
+                  <i class="bi bi-clock"></i>
+                  <h3>Último acesso: 00/00/0000</h3>
+                </div>
               </div>
-              <div class="info-acesso">
-                <i class="bi bi-clock"></i>
-                <h3>Último acesso: 00/00/0000</h3>
-                
+              <div class="info-mcamp-2">
+                <div class="jogadores">
+                  <img src="https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="" />
+                </div>
+                <button class="iniciar-camp"><a href="{% url 'dashboard' campanha.pk %}">Iniciar Jogo</a></button>
               </div>
-            </div>
-            <div class="info-mcamp-2">
-              <div class="jogadores">
-                <img src="https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="">
-                <img src="https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="">
-              </div>
-              <button class="iniciar-camp">
-                <a href="">
-                    Iniciar Jogo
-                </a>
-              </button>
             </div>
           </div>
-        </div>
-        <div class="mcamp">
-          <a class="img-camp" href=""><img src="https://imageproxyb.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/f8eaaee016bd36003c1141edc3f27a327a762e6183599c0df67aedecc32d403c_1.jpg" alt="" /></a>
-          <div class="area-mcamp">
-            <div class="info-mcamp">
-              <a href="">Indo Ali Adventures</a>
-              <div class="info-mestre">
-                <i class="fa-solid fa-crown"></i>
-                <h3>João Pedro</h3>
-              </div>
-              <div class="info-acesso">
-                <i class="bi bi-clock"></i>
-                <h3>Último acesso: 00/00/0000</h3>
-                
-              </div>
-            </div>
-            <div class="info-mcamp-2">
-              <div class="jogadores">
-                <img src="https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="">
-                <img src="https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" alt="">
-              </div>
-              <button class="iniciar-camp">
-                <a href="">
-                    Iniciar Jogo
-                </a>
-              </button>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
+      </div>
+      <div class="paginator">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Próximo</a>
+        {% endif %}
       </div>
     </div>
-    <div class="area-botao"></div>
   </div>
 {% endblock %}
