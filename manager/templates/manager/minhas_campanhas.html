@@ -10,12 +10,15 @@
       <div class="area-search">
         <div class="pesquisa">
           <button class="btn-pesquisa"><i class="bi bi-search"></i></button>
-          <input type="text" />
+          <form role="search" method="get" action="{%url 'pesquisa_campanhas'%}">
+            <input type="search" placeholder="Pesquisar campanha..." aria-label="Search" value="{{request.GET.pesq}}" name="pesq">
+          </form>
         </div>
 
         <a class="btn-criarcamp" href="{% url 'campanha-criar' %}">Criar Campanha</a>
       </div>
       <div class="camp-content2">
+      {% if campanhas %}
         {% for campanha in campanhas %}
           <div class="mcamp">
             <a class="img-camp" href=""><img src="{{ campanha.imagem.url }}" alt="" /></a>
@@ -40,6 +43,10 @@
             </div>
           </div>
         {% endfor %}
+      {%else%}
+
+        <h1>Desculpe, não achamos nenhum produto na nossa base de dados!</h1>
+      {%endif%}
       </div>
       <div class="paginator">
         {% if page_obj.has_previous %}

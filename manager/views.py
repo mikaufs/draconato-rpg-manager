@@ -48,4 +48,29 @@ class TesteDashboard(TemplateView):
         
         if user != queryset:
             return reverse_lazy('index')
-# Create your views here.
+
+def pesquisa(request):
+    pesquisa = request.GET.get('pesq')
+    Categ_str = request.GET.get('categ')
+
+    Categ = 0
+    if Categ_str is not None:
+        try:
+            Categ = int(Categ_str)
+        except ValueError:
+            Categ = 0
+
+    if Categ == 0:
+        lista = Campanha.objects.order_by('-id').filter(
+            nome__icontains=pesquisa
+        )
+    else:
+        lista = Campanha.objects.order_by('-id').filter(
+            nome__icontains=pesquisa,
+            categoria=Categ
+        )
+    print(lista)
+
+    return render(request, 'pesquisa_campanhas.html', {
+        'campanhas': lista,
+    })
