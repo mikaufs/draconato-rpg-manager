@@ -12,8 +12,11 @@
           <label for="id_nome">Título:</label>
           {{ form.nome }}
 
-          <label for="id_mestre">Mestre:</label>
-          {{ form.mestre }}
+          <div style="display: none;">
+          <select name="mestre" required id="id_mestre">
+            <option value="{{request.user.id}}" selected>{{request.user}}</option>
+          </select>
+        </div>
 
           <label for="id_sistema">Sistema:</label>
           {{ form.sistema }}
@@ -25,14 +28,15 @@
           {{ form.jogador }}
         </div>
         
-        <div class="c1">
-          <img id="selectedImage" src="https://i.ibb.co/pzkH6gc/placeholder.png" alt="example placeholder" />
-{{form.imagem}}
+        <div class="c1" style="align-items: center;">
 
-          <hr />
+          <img id="selectedImage" src="https://i.ibb.co/pzkH6gc/placeholder.png" alt="example placeholder" />
+          <input type="file" name="imagem" accept="image/*" required id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
+
+          <p style="margin: 20px; margin-top: 10px;">______________________________</p>
 
           <button type="submit" class="botao">Criar Campanha</button>
-          <a class="btn-cancelar" href="">Cancelar</a>
+          <a class="btn-cancelar" href="{% url 'minhascampanhas' %}">Cancelar</a>
         </div>
       </form>
     </div>

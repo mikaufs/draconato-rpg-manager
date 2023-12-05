@@ -12,6 +12,7 @@ class ListarMCampanhas(ListView):
     template_name = "manager/minhas_campanhas.html"
     model = Campanha
     context_object_name = 'campanhas'
+    paginate_by='5'
 
     def get_queryset(self):
         user = self.request.user
@@ -34,10 +35,12 @@ class CampanhaCreateView(CreateView):
     form_class = CampanhaForm
     template_name = "manager/forms/form_campanha.html"
     success_url = reverse_lazy("minhascampanhas")
+    
 
-    def form_valid(self, form):
-        form.instance.mestre = self.request.user
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        
+        form = CampanhaForm(user=request.user if request.user.is_authenticated else None)
+        return render(request, self.template_name, {'form': form})
 
 class TesteDashboard(TemplateView):
     template_name = "manager/dashboard/dashboard.html"
