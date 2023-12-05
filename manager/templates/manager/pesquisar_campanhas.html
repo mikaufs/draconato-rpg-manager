@@ -1,23 +1,8 @@
 {% extends 'base_index.html' %}
 
 {% block area %}
-  <div class="area-med2">
-    <div class="area-camp2">
-      <div class="area-camp-title2">
-        <i class="bi bi-list-ul"></i>
-        <h3 class="title-1">Minhas Campanhas</h3>
-      </div>
-      <div class="area-search">
-        <div class="pesquisa">
-        <form method="GET" id="search-form">
-          <button class="btn-pesquisa" id="search-btn"><i class="bi bi-search"></i></button>
-          <input placeholder="Pesquisar campanha..." type="text" name="search" id="search">
-        </form>
-        </div>
-
-        <a class="btn-criarcamp" href="{% url 'campanha-criar' %}">Criar Campanha</a>
-      </div>
-      <div class="camp-content2">
+{% if pesquisa %}
+        <h2>Resultados da Pesquisa para "{{ pesquisa }}"</h2>
         {% for campanha in campanhas %}
           <div class="mcamp">
             <a class="img-camp" href=""><img src="{{ campanha.imagem.url }}" alt="" /></a>
@@ -42,6 +27,9 @@
             </div>
           </div>
         {% endfor %}
+        {% else %}
+        <h2>Esqueceu de pesquisar!</h2>
+        {% endif %}
       </div>
       <div class="paginator">
         {% if page_obj.has_previous %}
@@ -51,7 +39,5 @@
         {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}">Próximo</a>
         {% endif %}
-      </div>
-    </div>
-  </div>
+
 {% endblock %}
