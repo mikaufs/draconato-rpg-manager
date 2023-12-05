@@ -13,11 +13,17 @@ class ListarMCampanhas(ListView):
     model = Campanha
     context_object_name = 'campanhas'
     paginate_by='5'
-
+    
     def get_queryset(self):
-        user = self.request.user
-        queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
-        return queryset
+        search = self.request.GET.get('search')
+
+        if search:
+            campanhas = Campanha.objects.filter(nome__icontains=search)
+        else:
+            user = self.request.user
+            campanhas = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
+
+        return campanhas
 
 class ListarInicio(LoginRequiredMixin, ListView):
     template_name = "manager/index.html"

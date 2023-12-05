@@ -237,7 +237,7 @@
     margin-bottom: 50px;
 }
 
-.pesquisa{
+.pesquisa, form{
     display: flex;
     justify-content: space-between;
     border-radius: 25px;

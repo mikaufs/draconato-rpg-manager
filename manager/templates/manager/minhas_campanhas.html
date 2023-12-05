@@ -9,8 +9,10 @@
       </div>
       <div class="area-search">
         <div class="pesquisa">
-          <button class="btn-pesquisa"><i class="bi bi-search"></i></button>
-          <input type="text" />
+          <form method="GET" id="search-form">
+            <button class="btn-pesquisa" id="search-btn"><i class="bi bi-search"></i></button>
+            <input placeholder="Pesquisar campanha..." type="text" name="search" id="search">
+          </form>
         </div>
 
         <a class="btn-criarcamp" href="{% url 'campanha-criar' %}">Criar Campanha</a>
@@ -28,7 +30,7 @@
                 </div>
                 <div class="info-acesso">
                   <i class="bi bi-clock"></i>
-                  <h3>Último acesso: 00/00/0000</h3>
+                  <h3>Criado em: {{campanha.data_inicio}}</h3>
                 </div>
               </div>
               <div class="info-mcamp-2">
