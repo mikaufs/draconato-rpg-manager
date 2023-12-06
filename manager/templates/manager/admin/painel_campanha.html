@@ -1,0 +1,57 @@
+{% extends 'base_painel.html' %}
+
+{% block content %}
+  <div class="area-painel">
+    <div class="area-painel-int">
+      <div class="cabecalho">
+        <h2>Painel de Controle</h2>
+      </div>
+
+      <div class="area-adm">
+        <div class="area-est">
+          <a href="{% url "painel-listar" %}">
+            <div class="est">
+              <i class="bi bi-person-fill"></i>
+              <h2>{{ users.count }}</h2>
+              <h3>Usuários</h3>
+            </div>
+          </a>
+          <div class="est-ativo">
+            <i class="bi bi-people-fill"></i>
+            <h3>Campanhas</h3>
+          </div>
+        </div>
+        <div class="area-tabela">
+          <table style="width: 100%; height: 90%;">
+            <tr>
+              <th style="border-top-left-radius: 20px;">Campanha</th>
+              <th>Mestre</th>
+              <th>N° Jogadores</th>
+              <th style="border-top-right-radius: 20px;">AÇÕES</th>
+            </tr>
+
+            {% for campanha in campanhas %}
+              <tr>
+                <td>{{ campanha.nome }}</td>
+                <td>{{ campanha.mestre }}</td>
+                <td>{{ campanha.jogador.count }}</td>
+                <td>
+                  <a href=""><i class="bi bi-pencil-square"></i></a>
+                  <a href=""><i class="bi bi-trash3-fill"></i></a>
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+          <div class="paginator">
+            {% if page_obj.has_previous %}
+              <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}">Próximo</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -47,8 +47,18 @@
           <div class="btn-group">
             <button class="botao" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user }} <i class="bi bi-person-circle"></i></button>
             <div class="dropdown-menu dropdown-menu-right">
+
+              
+              {% if user.is_superuser %}
+                
+              <a class="dropdown-item" href="{% url "painel-listar" %}"><i class="bi bi-gear-wide-connected"></i>Painel Admin</a>
+              
+              {% else %}
+
               <a class="dropdown-item" href="#"><i class="bi bi-person-fill"></i>Meu Perfil</a>
-              <a class="dropdown-item" href="#"><i class="bi bi-gear-fill"></i>Configurações</a>
+
+              {% endif %}
+
               <div class="dropdown-divider"></div>
               <a style="color: #963838;" class="dropdown-item" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-left"></i>Sair</a>
             </div>

@@ -124,6 +124,10 @@ html {
     color: #4C4B4B;
 }
 
+form p{
+    margin: 0;
+}
+
 .manter p {
     margin-left: 5px;
 }

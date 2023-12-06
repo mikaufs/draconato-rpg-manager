@@ -1,1 +1,22 @@
 {% extends 'base_dashboard.html' %}
+
+{% block content %}
+  <div class="area-mural">
+    <div class="l-side">
+      <div class="info">
+        <img src="{{campanha.imagem.url}}" alt="">
+        <h2>{{campanha.nome}}</h2>
+        <h3>{{campanha.sistema}}</h3>
+      </div>
+      <div class="desc">
+        <p>Sobre: {{campanha.descricao}}</p>
+      </div>
+    </div>
+
+    <div class="r-side">
+        <div class="mural">
+
+        </div>
+    </div>
+  </div>
+{% endblock %}

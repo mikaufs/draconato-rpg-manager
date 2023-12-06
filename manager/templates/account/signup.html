@@ -1,32 +1,37 @@
-{% extends "account/base_entrance.html" %}
-{% load allauth i18n socialaccount %}
-{% block head_title %}
-    {% trans "Signup" %}
-{% endblock head_title %}
+{% extends 'base_login.html' %}
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Sign Up" %}
-    {% endelement %}
-    <p>
-        {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
-    </p>
-    {% url 'account_signup' as action_url %}
-    {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button tags="prominent,signup" type="submit" %}
-                {% trans "Sign Up" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-{% endblock content %}
+  <div class="login">
+    <div class="possui-conta">
+      <p>Já possui conta?</p>
+      <a href="{% url 'account_login' %}" class="c2">Entrar!</a>
+    </div>
+    <h2>Registre-se</h2>
+    <div class="campos">
+      <form method="post" action="/accounts/signup/">
+        <input type="hidden" name="csrfmiddlewaretoken" value="gUopyGp2DVy4LGIm7V7hIFxGsgFfJoVkre6GGuySRF6UU2sFUnGQecikGhVBUvwX" />
+        <p>
+          <input type="text" name="username" placeholder="Nome de usuário" autocomplete="username" minlength="1" maxlength="150" required id="id_username" />
+        </p>
+
+        <p>
+          <input type="email" name="email" placeholder="Email (não obrigatório)" autocomplete="email" maxlength="320" id="id_email" />
+        </p>
+
+        <p style="color: gray; margin-top: -10px; margin-bottom: 10px;">_____________________________</p>
+
+        <p>
+          <input type="password" name="password1" placeholder="Senha" autocomplete="new-password" required id="id_password1" />
+
+        </p>
+
+        <p>
+          <input type="password" name="password2" placeholder="Confirmar senha" autocomplete="new-password" required id="id_password2" />
+        </p>
+
+        <button style="margin-top: 10px;" type="submit" class="entrar">Registrar-se</button>
+      </form>
+    </div>
+
+  </div>
+{% endblock %}

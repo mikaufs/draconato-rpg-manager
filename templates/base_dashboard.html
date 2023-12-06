@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Página Inicial - Draconato</title>
+    <title>{{campanha.nome}} - Draconato</title>
 
     <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
 
@@ -27,7 +27,7 @@
                 </a>
             </div>
             <div class="mural">
-                <a class="botao" href="">Mural
+                <a  class="botao" href="">Mural
                 </a>
 
             </div>
@@ -36,9 +36,9 @@
                 </a>
                 <a class="botao-1" href="">Anotações
                 </a>
-                <a class="botao-1" href="">Imagens
+                <a style="color: #4C4B4B;" class="botao-1" href="">Imagens
                 </a>
-                <a class="botao-1" href="">Músicas
+                <a style="color: #4C4B4B;" class="botao-1" >Músicas
                 </a>
 
             </div>
@@ -49,6 +49,10 @@
             </div>
         </div>
         <div class="area-content">
+            
+            {% block content %}
+                
+            {% endblock content %}
 
         </div>
     </div>

@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Campanha, Anotacao, Personagem
+from django.contrib.auth.models import User
 from .forms import CampanhaForm
 from django.views.generic import ListView,CreateView,DeleteView,DetailView, UpdateView,TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -7,7 +8,6 @@ from django.urls import reverse_lazy
 from django.contrib.messages import views
 from django.db.models import Q
 from django.http import HttpResponseForbidden
-
 
 class ListarMCampanhas(ListView):
     template_name = "manager/minhas_campanhas.html"
@@ -36,7 +36,7 @@ class ListarInicio(LoginRequiredMixin, ListView):
         queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
         return queryset
     
-class CampanhaCreateView(CreateView):
+class CampanhaCreate(CreateView):
     model = Campanha
     form_class = CampanhaForm
     template_name = "manager/forms/form_campanha.html"
@@ -48,13 +48,39 @@ class CampanhaCreateView(CreateView):
         form = CampanhaForm(user=request.user if request.user.is_authenticated else None)
         return render(request, self.template_name, {'form': form})
 
-class Dashboard(TemplateView):
+class Dashboard(DetailView):
     template_name = "manager/dashboard/dashboard.html"
+    model = Campanha
 
-    def get_perm(self):
+    def get(self, request, *args, **kwargs):
         user = self.request.user
         queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
-        
-        if user != queryset:
+
+        if not queryset.exists():
             return reverse_lazy('index')
-# Create your views here.
+
+        return super().get(request, *args, **kwargs)
+    
+class ListarPainelADM(ListView):
+    template_name = "manager/admin/painel.html"
+    model = User
+    context_object_name = "users"
+    paginate_by = "5"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['campanhas'] = Campanha.objects.all()
+        return context
+
+class ListarPainelCampanhasADM(ListView):
+    template_name = "manager/admin/painel_campanha.html"
+    model = Campanha
+    context_object_name = "campanhas"
+    paginate_by = "5"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['users'] = User.objects.all()
+        return context

@@ -327,19 +327,23 @@
 }
 
 .jogadores{
+    color: #4C4B4B;
     margin-top: 0px;
     margin-bottom: 0px;
     display: flex;
     align-items: center;
     align-content: center;
-    margin-left: 15px;
 }
 
-.jogadores img{
-    height: 40px;
-    width: 40px;
-    border-radius: 25px;
-    margin-left: -15px;
+.jogadores i, p{
+    font-size: 20px;
+}
+
+.jogadores p{
+    font-weight: 700;
+    font-size: 15px;
+    margin: 0;
+    margin-left: 5px;
 }
 
 .info-mestre, .info-acesso{
