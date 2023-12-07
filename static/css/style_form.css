@@ -50,7 +50,7 @@ html {
     padding: 30px;
     background-color: #262424;
     border-radius: 25px;
-    height: 90%;
+    height: fit-content;
 }
 
 .cabecalho {
@@ -69,7 +69,21 @@ form{
     justify-content: center;
     align-items: center;
     align-content: center;
+    text-align: center;
     height: 90%;
+}
+
+.c2{
+    margin: 30px;
+    width: max-content;
+    font-weight: 700;
+    color: #636363;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: left;
 }
 
 .c1 {
@@ -146,7 +160,7 @@ form{
 .botao{
     color: #171717;
     height: 40px;
-    width: 200px;
+    width: 100%;
     border-style: none;
     border-radius: 20px;
     background-color: #D9D179;

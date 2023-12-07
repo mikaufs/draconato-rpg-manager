@@ -9,7 +9,8 @@
     <h2>Registre-se</h2>
     <div class="campos">
       <form method="post" action="/accounts/signup/">
-        <input type="hidden" name="csrfmiddlewaretoken" value="gUopyGp2DVy4LGIm7V7hIFxGsgFfJoVkre6GGuySRF6UU2sFUnGQecikGhVBUvwX" />
+        {% csrf_token %}
+
         <p>
           <input type="text" name="username" placeholder="Nome de usuário" autocomplete="username" minlength="1" maxlength="150" required id="id_username" />
         </p>
@@ -17,8 +18,6 @@
         <p>
           <input type="email" name="email" placeholder="Email (não obrigatório)" autocomplete="email" maxlength="320" id="id_email" />
         </p>
-
-        <p style="color: gray; margin-top: -10px; margin-bottom: 10px;">_____________________________</p>
 
         <p>
           <input type="password" name="password1" placeholder="Senha" autocomplete="new-password" required id="id_password1" />

@@ -1,0 +1,30 @@
+{% extends 'base_form.html' %}
+
+{% block content %}
+  <div class="form">
+    <div class="cabecalho">
+      <h2>Nova Postagem</h2>
+    </div>
+    <div class="conteudo">
+      <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <div class="c1">
+          <div style="display: none;">
+            {{ form.campanha }}
+          </div>
+          <div style="display: none;">
+            <select name="autor" required id="id_autor">
+              <option value="{{ request.user.id }}" selected>{{ request.user }}</option>
+            </select>
+          </div>
+
+          <label for="id_texto">Texto:</label>
+          {{ form.texto }}
+
+          <button type="submit" class="botao">Enviar</button>
+          <a class="btn-cancelar" href="javascript:history.back()">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

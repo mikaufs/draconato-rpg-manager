@@ -42,3 +42,15 @@ class Personagem(models.Model):
 
     def __str__(self):
         return self.nome
+    
+class Postagem(models.Model):
+    campanha = models.ForeignKey(Campanha,on_delete=models.CASCADE)
+    autor = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    texto = models.TextField()
+    data_postagem = models.DateField(auto_now_add=True)
+    hora_criacao = models.TimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return self.texto
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Campanha, Anotacao, Sistema, Personagem
+from .models import Campanha, Anotacao, Sistema, Personagem, Postagem
 
 @admin.register(Sistema)
 class CampanhaAdmin (admin.ModelAdmin):
@@ -16,3 +16,7 @@ class AnotacaoAdmin (admin.ModelAdmin):
 @admin.register(Personagem)
 class PersonagemAdmin (admin.ModelAdmin):
     list_display = ['campanha', 'usuario', 'nome', 'level', 'ca', 'vida_max','vida']
+
+@admin.register(Postagem)
+class PostagemAdmin (admin.ModelAdmin):
+    list_display = ['campanha', 'autor', 'texto', 'data_postagem']

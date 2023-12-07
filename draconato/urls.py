@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from manager.views import ListarInicio, ListarMCampanhas, CampanhaCreate, Dashboard, ListarPainelADM, ListarPainelCampanhasADM
+from manager.views import ListarInicio, ListarMCampanhas, CampanhaCreate, Dashboard, ListarPainelADM, ListarPainelCampanhasADM, PostagemCreateView
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -10,8 +10,11 @@ urlpatterns = [
     
     path('', ListarInicio.as_view(),name='index'),
     path('minhascampanhas', ListarMCampanhas.as_view(), name='minhascampanhas'),
+
     path('campanha/criar', CampanhaCreate.as_view(), name='campanha-criar'),
     path('campanha/<int:pk>', Dashboard.as_view(), name='dashboard'),
+
+    path('campanha/<int:pk>/postagem/criar', PostagemCreateView.as_view(), name='postagem-criar'),
 
     path('painel/', ListarPainelADM.as_view(), name='painel-listar'),
     path('painel/campanhas', ListarPainelCampanhasADM.as_view(), name='painel-campanhas'),

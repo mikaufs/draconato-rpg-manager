@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Campanha, Anotacao, Personagem
+from .models import Campanha, Anotacao, Personagem, Postagem
 from django.contrib.auth.models import User
-from .forms import CampanhaForm
+from .forms import CampanhaForm, PostagemForm
 from django.views.generic import ListView,CreateView,DeleteView,DetailView, UpdateView,TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -42,7 +42,6 @@ class CampanhaCreate(CreateView):
     template_name = "manager/forms/form_campanha.html"
     success_url = reverse_lazy("minhascampanhas")
     
-
     def get(self, request, *args, **kwargs):
         
         form = CampanhaForm(user=request.user if request.user.is_authenticated else None)
@@ -51,6 +50,12 @@ class CampanhaCreate(CreateView):
 class Dashboard(DetailView):
     template_name = "manager/dashboard/dashboard.html"
     model = Campanha
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['postagens'] = Postagem.objects.filter(campanha=self.object).order_by('-hora_criacao')
+        return context
 
     def get(self, request, *args, **kwargs):
         user = self.request.user
@@ -84,3 +89,22 @@ class ListarPainelCampanhasADM(ListView):
         
         context['users'] = User.objects.all()
         return context
+    
+class PostagemCreateView(CreateView):
+    model = Postagem
+    template_name = "manager/forms/form_postagem.html"
+    form_class = PostagemForm
+    success_url = reverse_lazy("dashboard")
+
+    def get_form_kwargs(self):
+        kwargs = super(PostagemCreateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def get_initial(self):
+        initial = super(PostagemCreateView, self).get_initial()
+        initial['campanha'] = self.kwargs.get('pk')
+        return initial
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard', args=[self.object.campanha.pk])

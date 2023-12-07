@@ -32,7 +32,7 @@
 
             {% for campanha in campanhas %}
               <tr>
-                <td>{{ campanha.nome }}</td>
+                <td><a style="font-size: 12px;" href="{% url "dashboard" campanha.pk %}">{{ campanha.nome }}</a></td>
                 <td>{{ campanha.mestre }}</td>
                 <td>{{ campanha.jogador.count }}</td>
                 <td>
