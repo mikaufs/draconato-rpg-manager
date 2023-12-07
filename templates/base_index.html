@@ -60,7 +60,13 @@
               {% endif %}
 
               <div class="dropdown-divider"></div>
-              <a style="color: #963838;" class="dropdown-item" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-left"></i>Sair</a>
+              <form method="post" action="{% url 'account_logout' %}" style="width: 50%;">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button style="width: 50%; background-color: white; color: black;" class="" type="submit">Sair</button>
+            </form>
             </div>
           </div>
         </div>
