@@ -8,6 +8,7 @@ body,
 html {
     margin: 0;
     height: 100%;
+    color: rgb(236, 77, 77);
 }
 
 .area-total {
@@ -128,7 +129,36 @@ html {
     padding-bottom: 16px;
 }
 
+.botao-ativo {
+    color:#262424;
+    width: 100%;
+    text-decoration: none;
+    text-align: center;
+    background-color: #D9C179;
+    border-radius: 20px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
 .botao-1 {
+    color: white;
+    width: 25%;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.botao-1-desativado {
+    color: #4C4B4B;
+    width: 25%;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+.botao-1-ativo {
     color: white;
     width: 25%;
     text-decoration: none;

@@ -17,10 +17,11 @@ class ListarMCampanhas(ListView):
 
     def get_queryset(self):
         search = self.request.GET.get('search')
+        user = self.request.user
+
         if search:
-            campanhas = Campanha.objects.filter(nome__icontains=search)
+            campanhas = Campanha.objects.filter(Q(nome__icontains=search) & (Q(mestre=user) | Q(jogador=user)))
         else:
-            user = self.request.user
             campanhas = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
 
         return campanhas
@@ -54,7 +55,7 @@ class Dashboard(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['postagens'] = Postagem.objects.filter(campanha=self.object).order_by('-hora_criacao')
+        context['postagens'] = Postagem.objects.filter(campanha=self.object).order_by('-data_postagem','-hora_criacao')
         return context
 
     def get(self, request, *args, **kwargs):
@@ -66,7 +67,7 @@ class Dashboard(DetailView):
 
         return super().get(request, *args, **kwargs)
     
-class ListarPainelADM(ListView):
+class ListarPainelADM(UserPassesTestMixin, ListView):
     template_name = "manager/admin/painel.html"
     model = User
     context_object_name = "users"
@@ -77,8 +78,11 @@ class ListarPainelADM(ListView):
         
         context['campanhas'] = Campanha.objects.all()
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class ListarPainelCampanhasADM(ListView):
+class ListarPainelCampanhasADM(UserPassesTestMixin, ListView):
     template_name = "manager/admin/painel_campanha.html"
     model = Campanha
     context_object_name = "campanhas"
@@ -89,6 +93,9 @@ class ListarPainelCampanhasADM(ListView):
         
         context['users'] = User.objects.all()
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser
     
 class PostagemCreateView(CreateView):
     model = Postagem

@@ -38,8 +38,11 @@
         </div>
 
         <div class="cabecalho-nav">
-          <a style="color: #D9C179;" href="{% url 'index' %}">Página Inicial</a>
-          <a href="{% url 'minhascampanhas' %}">Minhas Campanhas</a>
+          
+          {% block nav %}
+
+          {% endblock nav %}
+            
         </div>
 
         <div class="cabecalho-user">
@@ -60,7 +63,15 @@
               {% endif %}
 
               <div class="dropdown-divider"></div>
-              <a style="color: #963838;" class="dropdown-item" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-left"></i>Sair</a>
+              <form method="post" action="{% url 'account_logout' %}" style="background-color: transparent; width: 100%;">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button style="text-align: left ;font-size: 15px; border-style: none; width: 100%; background-color: transparent; color: rgb(236, 77, 77);" class="" type="submit">
+                  <i style="background-color: transparent; margin-right: 5px; margin-left: 10px;" class="bi bi-box-arrow-left"></i>
+                  Sair</button>
+              </form>
             </div>
           </div>
         </div>

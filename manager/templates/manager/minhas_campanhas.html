@@ -1,5 +1,10 @@
 {% extends 'base_index.html' %}
 
+{% block nav %}
+  <a href="{% url 'index' %}">Página Inicial</a>
+  <a style="color: #D9C179;" href="{% url 'minhascampanhas' %}">Minhas Campanhas</a>
+{% endblock %}
+
 {% block area %}
   <div class="area-med2">
     <div class="area-camp2">
@@ -11,7 +16,7 @@
         <div class="pesquisa">
           <form method="GET" id="search-form">
             <button class="btn-pesquisa" id="search-btn"><i class="bi bi-search"></i></button>
-            <input placeholder="Pesquisar campanha..." type="text" name="search" id="search">
+            <input placeholder="Pesquisar campanha..." type="text" name="search" id="search" />
           </form>
         </div>
 
@@ -30,13 +35,13 @@
                 </div>
                 <div class="info-acesso">
                   <i class="bi bi-clock"></i>
-                  <h3>Criado em: {{campanha.data_inicio}}</h3>
+                  <h3>Criado em: {{ campanha.data_inicio }}</h3>
                 </div>
               </div>
               <div class="info-mcamp-2">
                 <div class="jogadores">
                   <i class="bi bi-people-fill"></i>
-                  <p>{{campanha.jogador.count}} Jogadores</p>
+                  <p>{{ campanha.jogador.count }} Jogadores</p>
                 </div>
                 <button class="iniciar-camp"><a href="{% url 'dashboard' campanha.pk %}">Iniciar Jogo</a></button>
               </div>
@@ -46,11 +51,11 @@
       </div>
       <div class="paginator">
         {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+          <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
         {% endif %}
 
         {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Próximo</a>
+          <a href="?page={{ page_obj.next_page_number }}">Próximo</a>
         {% endif %}
       </div>
     </div>

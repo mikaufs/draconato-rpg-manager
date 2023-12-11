@@ -31,27 +31,10 @@
                     <img src="{% static 'logo/dracoico.svg' %}" alt="">
                 </a>
             </div>
-            <div class="mural">
-                <a  class="botao" href="">Mural
-                </a>
+            
+            {% block nav %}
 
-            </div>
-            <div class="opcoes">
-                <a class="botao-1" href="">Fichas
-                </a>
-                <a class="botao-1" href="">Anotações
-                </a>
-                <a style="color: #4C4B4B;" class="botao-1" href="">Imagens
-                </a>
-                <a style="color: #4C4B4B;" class="botao-1" >Músicas
-                </a>
-
-            </div>
-            <div class="configuracoes">
-                <a href="">
-                    <i class="bi bi-gear-fill"></i>
-                </a>
-            </div>
+            {% endblock nav %}
         </div>
         <div class="area-content">
             

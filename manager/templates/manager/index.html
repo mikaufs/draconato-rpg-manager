@@ -1,5 +1,13 @@
 {% extends 'base_index.html' %}
 
+{% block nav %}
+  
+<a style="color: #D9C179;" href="{% url 'index' %}">Página Inicial</a>
+<a href="{% url 'minhascampanhas' %}">Minhas Campanhas</a>
+
+{% endblock nav %}
+  
+
 {% block area %}
 
 <div class="area-med">
@@ -25,7 +33,7 @@
     </div>
   </div>
   <div class="area-botao">
-    <a href="" class="botao-vermais">
+    <a href="{% url "minhascampanhas" %}" class="botao-vermais">
       {% if campanhas %}
         Minhas Campanhas
       {% else %}
