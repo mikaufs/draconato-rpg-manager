@@ -1,0 +1,110 @@
+{% extends 'base_ficha.html' %}
+
+{% block content %}
+    <div class="ficha">
+
+        <a style="text-decoration: none; color: #D9C179;" href="javascript:history.back()" class="ficha-cabecalho">
+          Voltar
+        </a>
+        <div class="ficha-cabecalho">
+          <h2>{{request.user}} - Sussuros das Profundezas</h2>
+        </div>
+
+        <form class="ficha-content" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+          <div class="ficha-l-side">
+
+            <div style="display: none;">
+                {{form.campanha}}
+                <select name="usuario" required id="id_usuario">
+                  <option value="{{request.user.id}}" selected>{{request.user}}</option>
+            </select>
+            </div>
+
+            <input class="img-input" type="file" name="imagem" accept="image/*" required id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
+            <img class="ficha-foto" id="selectedImage" src="
+            
+            {% if personagem %}
+            {{personagem.imagem.url}}
+            {% else %}
+            https://i.ibb.co/pzkH6gc/placeholder.png
+            {% endif %}
+            " alt="example placeholder" />
+            <h1 class="ficha-lvl">Lvl.<input type="number" id="id_level" value="{{personagem.level}}" class="level-valor"/></h1>
+
+            <div class="ficha-vida">
+              <i class="bi bi-heart-pulse-fill"></i>
+              <h2>|</h2>
+              <input type="number" value="{{personagem.vida}}" id="id_vida" class="vida-valor" />
+            </div>
+
+            <div class="ficha-pericia">
+              <input type="number" value="{{personagem.forca}}" id="id_forca" class="pericia-valor" />
+              <h2 class="pericia-info">FORÇA</h2>
+            </div>
+            <div class="ficha-pericia">
+              <input type="number" value="{{personagem.destreza}}" id="id_destreza" class="pericia-valor" />
+              <h2 class="pericia-info">DESTREZA</h2>
+            </div>
+            <div class="ficha-pericia">
+              <input type="number" value="{{personagem.constituicao}}" id="id_constituicao" class="pericia-valor" />
+              <h2 class="pericia-info">CONSTITUIÇÃO</h2>
+            </div>
+            <div class="ficha-pericia">
+              <input type="number" value="{{personagem.inteligencia}}" id="id_inteligencia" class="pericia-valor" />
+              <h2 class="pericia-info">INTELIGÊNCIA</h2>
+            </div>
+            <div class="ficha-pericia">
+              <input type="number" value="{{personagem.sabedoria}}" id="id_sabedoria" class="pericia-valor" />
+              <h2 class="pericia-info">SABEDORIA</h2>
+            </div>
+            <div class="ficha-pericia">
+              <input type="number" value="{{personagem.carisma}}" id="id_carisma" class="pericia-valor" />
+              <h2 class="pericia-info">CARISMA</h2>
+            </div>
+          </div>
+          <div class="ficha-r-side">
+            <div class="r-s-campo-1">
+              <h3>Personagem</h3>
+              {{form.nome}}
+            </div>
+            <div class="r-s-campo-2">
+              <div>
+                <h3>Classe</h3>
+                {{form.classe}}
+              </div>
+              <div>
+                <h3>Raça</h3>
+                {{form.raca}}
+              </div>
+            </div>
+            <div class="r-s-campo-2">
+              <div>
+                <h3>Armadura</h3>
+                {{form.ca}}
+              </div>
+              <div>
+                <h3>Deslocamento</h3>
+                {{form.deslocamento}}
+              </div>
+            </div>
+            <div class="r-s-campo-3">
+              <h3>Perícias</h3>
+              {{form.pericias}}
+            </div>
+            <div class="r-s-campo-3">
+              <h3>Magias e Habilidades</h3>
+              {{form.mh}}
+            </div>
+            <div class="r-s-campo-3">
+              <h3>Inventário</h3>
+              {{form.inventario}}
+            </div>
+            <button type="submit">
+                Salvar Ficha
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}

@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Campanha, Anotacao, Personagem, Postagem
 from django.contrib.auth.models import User
-from .forms import CampanhaForm, PostagemForm
+from .forms import CampanhaForm, PostagemForm, PersonagemForm
 from django.views.generic import ListView,CreateView,DeleteView,DetailView, UpdateView,TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.contrib.messages import views
 from django.db.models import Q
 from django.http import HttpResponseForbidden
+
+# - - - - - - - - - - # Minhas Campanhas # - - - - - - - - - - #
 
 class ListarMCampanhas(ListView):
     template_name = "manager/minhas_campanhas.html"
@@ -26,17 +28,6 @@ class ListarMCampanhas(ListView):
 
         return campanhas
 
-class ListarInicio(LoginRequiredMixin, ListView):
-    template_name = "manager/index.html"
-    model = Campanha
-    context_object_name = 'campanhas'
-    paginate_by = '4'
-
-    def get_queryset(self):
-        user = self.request.user
-        queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
-        return queryset
-    
 class CampanhaCreate(CreateView):
     model = Campanha
     form_class = CampanhaForm
@@ -47,6 +38,21 @@ class CampanhaCreate(CreateView):
         
         form = CampanhaForm(user=request.user if request.user.is_authenticated else None)
         return render(request, self.template_name, {'form': form})
+
+# - - - - - - - - - - # Página Inicial # - - - - - - - - - - #
+
+class ListarInicio(LoginRequiredMixin, ListView):
+    template_name = "manager/index.html"
+    model = Campanha
+    context_object_name = 'campanhas'
+    paginate_by = '4'
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
+        return queryset
+
+# - - - - - - - - - - # DASHBOARD # - - - - - - - - - - #
 
 class Dashboard(DetailView):
     template_name = "manager/dashboard/dashboard.html"
@@ -67,6 +73,67 @@ class Dashboard(DetailView):
 
         return super().get(request, *args, **kwargs)
     
+class DashboardFichas(DetailView):
+    template_name = 'manager/dashboard/fichas.html'
+    model = Campanha
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        campanha = self.get_object()
+
+        context['personagens'] = Personagem.objects.filter(campanha=campanha, usuario=user)
+
+        return context
+
+class FichaCreateView(CreateView):
+    model = Personagem
+    template_name = "manager/forms/form_ficha.html"
+    form_class = PersonagemForm
+    success_url = reverse_lazy("dashboard-fichas")
+
+    def get_form_kwargs(self):
+        kwargs = super(FichaCreateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def get_initial(self):
+        initial = super(FichaCreateView, self).get_initial()
+        initial['campanha'] = self.kwargs.get('pk')
+        return initial
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard-fichas', args=[self.object.campanha.pk])
+
+class FichaUpdateView(UpdateView):
+    model = Personagem
+    template_name = "manager/forms/form_ficha.html"
+    form_class = PersonagemForm
+    success_url = reverse_lazy("dashboard-fichas")
+
+    def get_initial(self):
+        initial = super(FichaUpdateView, self).get_initial()
+        initial['campanha'] = self.kwargs.get('pk')
+        return initial
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard-fichas', args=[self.object.campanha.pk])
+    
+class FichaDeleteView(DeleteView):
+    model = Personagem
+    template_name = 'manager/messages/ficha_delete.html'
+    success_url = reverse_lazy('dashboard-fichas')
+
+    def get_initial(self):
+        initial = super(FichaDeleteView, self).get_initial()
+        initial['campanha'] = self.kwargs.get('pk')
+        return initial
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard-fichas', args=[self.object.campanha.pk])
+
+# - - - - - - - - - - # CRUD - Painel (ADMIN) # - - - - - - - - - - #
+
 class ListarPainelADM(UserPassesTestMixin, ListView):
     template_name = "manager/admin/painel.html"
     model = User
@@ -96,7 +163,9 @@ class ListarPainelCampanhasADM(UserPassesTestMixin, ListView):
     
     def test_func(self):
         return self.request.user.is_superuser
-    
+
+# - - - - - - - - - - # CRUD - Postagem (DASHBOARD) # - - - - - - - - - - #
+
 class PostagemCreateView(CreateView):
     model = Postagem
     template_name = "manager/forms/form_postagem.html"
@@ -112,6 +181,15 @@ class PostagemCreateView(CreateView):
         initial = super(PostagemCreateView, self).get_initial()
         initial['campanha'] = self.kwargs.get('pk')
         return initial
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard', args=[self.object.campanha.pk])
+    
+class PostagemDeleteView(DeleteView):
+    model = Postagem
+    template_name = "manager/messages/postagem_delete.html"
+    success_url = reverse_lazy("dashboard")
+    
     
     def get_success_url(self):
         return reverse_lazy('dashboard', args=[self.object.campanha.pk])

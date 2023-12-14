@@ -6,8 +6,19 @@
       <h2>Nova Postagem</h2>
     </div>
     <div class="conteudo">
+
+
+
       <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="error">
+            <strong>There was an error in the form:</strong>
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
         <div class="c1">
           <div style="display: none;">
             {{ form.campanha }}

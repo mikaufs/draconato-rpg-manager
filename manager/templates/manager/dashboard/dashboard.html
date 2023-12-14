@@ -5,7 +5,7 @@
     <a class="botao-ativo" href="">Mural</a>
   </div>
   <div class="opcoes">
-    <a class="botao-1" href="">Fichas</a>
+    <a class="botao-1" href="{% url 'dashboard-fichas' campanha.pk %}">Fichas</a>
     <a class="botao-1" href="">Anotações</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
@@ -24,7 +24,21 @@
         <h3>{{ campanha.sistema }}</h3>
       </div>
       <div class="desc">
-        <p>Sobre: {{ campanha.descricao }}</p>
+        <div style="display: flex;justify-content: space-around ; flex-direction: row; flex-wrap: wrap; align-items: center;
+         align-content: center; margin-top: 10px;">
+          <p>
+            <i class="fa-solid fa-crown"></i> {{ campanha.mestre }}
+          </p>
+          <p>
+            <i class="bi bi-people-fill"></i> {{ campanha.jogador.count }}
+          </p>
+          <p>
+            <i class="bi bi-clock"></i> {{ campanha.data_inicio }}
+          </p>
+          <p>
+            <i class="bi bi-info-circle"></i> {{ campanha.descricao }}
+          </p>
+        </div>
       </div>
     </div>
 
@@ -32,10 +46,11 @@
       <div class="area-posts">
         <div class="posts-cabecalho">
           <h2>Mural da Campanha</h2>
-          <a href="{% url 'postagem-criar' campanha.id %}">Criar Postagem</a>
+          <a href="{% url 'postagem-criar' campanha.pk %}">Criar Postagem</a>
         </div>
         <div class="posts">
           {% for postagem in postagens %}
+          
             <div class="post">
               {% if request.user == postagem.autor %}
                 <div class="post-autor">
@@ -62,8 +77,9 @@
                 <hr />
                 <div class="post-feedback">
                   <a href=""><i class="bi bi-pencil-square"></i></a>
-                  <a href=""><i class="bi bi-trash3-fill"></i></a>
+                  <a data-toggle="modal" data-target="#deleteModal{{ postagem.pk }}" style="color: white;"><i class="bi bi-trash3-fill"></i></a>
                 </div>
+
               {% else %}
                 <hr style="mar" />
                 <div class="post-autor">
@@ -75,10 +91,13 @@
                   <h3>{{ postagem.autor }}</h3>
                 </div>
               {% endif %}
+
             </div>
+            
           {% endfor %}
         </div>
       </div>
     </div>
   </div>
+
 {% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base_dashboard.html' %}
+
+{% block nav %}
+  <div class="mural">
+    <a class="botao" href="{% url 'dashboard' campanha.pk %}">Mural</a>
+  </div>
+  <div class="opcoes">
+    <a class="botao-1-ativo" href="">Fichas</a>
+    <a class="botao-1" href="">Anotações</a>
+    <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
+    <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
+  </div>
+  <div class="configuracoes">
+    <a href=""><i class="bi bi-gear-fill"></i></a>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="area-fichas">
+    <div class="af-l-side">
+      <a href="{% url 'ficha-create' campanha.pk %}" class="criar-ficha">Criar uma nova ficha</a>
+
+      <div class="lista-fichas">
+        {% for personagem in personagens %}
+        <div class="selec-char">
+            <img src="{{ personagem.imagem.url }}" alt="" />
+            <div class="char-info">
+              <h2>{{ personagem.nome }}</h2>
+              <div class="char-info-2">
+                <h3>Lvl.: {{ personagem.level }}</h3>
+                <h3>|</h3>
+                <h3>Vida: {{ personagem.vida }}</h3>
+              </div>
+
+              <div class="char-info-3">
+                <h3><i class="bi bi-person-circle"></i> {{ personagem.usuario }}</h3>
+              </div>
+            </div>
+            
+          <a href="{% url 'ficha-update' campanha.pk personagem.id %}">
+            Editar
+          </a>
+          <a data-toggle="modal" data-target="#deleteModal{{ personagem.pk }}">
+            Excluir
+          </a>
+        </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

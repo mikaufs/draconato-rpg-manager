@@ -33,12 +33,25 @@ class Personagem(models.Model):
     campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE)
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
-    nome = models.CharField(max_length=100)
+    nome = models.CharField(max_length=100, default='nada')
     imagem = models.ImageField(upload_to='images/personagem')
-    level = models.IntegerField(default=1)
-    ca = models.IntegerField(default=10)
-    vida_max = models.IntegerField(default=10)
-    vida = models.IntegerField(default=8)
+    level = models.IntegerField(blank=True, default='0')
+    ca = models.IntegerField(blank=True, default='0')
+    vida = models.IntegerField(blank=True, default='0')
+    classe = models.CharField(blank=True, max_length=100, default='0')
+    raca = models.CharField(blank=True,max_length=100, default='0')
+    deslocamento = models.CharField(blank=True,max_length=100, default='0')
+
+    pericias = models.TextField(blank=True, default='0')
+    mh = models.TextField(blank=True, default='0')
+    inventario = models.TextField(blank=True, default='0')
+
+    forca = models.IntegerField(blank=True, default='0')
+    destreza = models.IntegerField(blank=True, default='0')
+    constituicao = models.IntegerField(blank=True, default='0')
+    inteligencia = models.IntegerField(blank=True, default='0')
+    sabedoria = models.IntegerField(blank=True, default='0')
+    carisma = models.IntegerField(blank=True, default='0')
 
     def __str__(self):
         return self.nome

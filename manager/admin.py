@@ -15,7 +15,7 @@ class AnotacaoAdmin (admin.ModelAdmin):
 
 @admin.register(Personagem)
 class PersonagemAdmin (admin.ModelAdmin):
-    list_display = ['campanha', 'usuario', 'nome', 'level', 'ca', 'vida_max','vida']
+    list_display = ['campanha', 'usuario', 'nome', 'level', 'ca', 'vida', 'classe']
 
 @admin.register(Postagem)
 class PostagemAdmin (admin.ModelAdmin):

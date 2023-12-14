@@ -1,9 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Campanha, Postagem
+from .models import Campanha, Postagem, Personagem
 from django.contrib.auth import get_user
 from django.db.models import Q
-
 
 class CampanhaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -30,4 +29,15 @@ class PostagemForm(forms.ModelForm):
 
     class Meta:
         model = Postagem
+        fields = '__all__'
+
+class PersonagemForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        super(PersonagemForm, self).__init__(*args, **kwargs)
+        if self.user:
+            self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user))
+
+    class Meta:
+        model = Personagem
         fields = '__all__'
