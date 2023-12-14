@@ -13,7 +13,7 @@ urlpatterns = [
 
     path('campanha/criar', CampanhaCreate.as_view(), name='campanha-criar'),
     path('campanha/<int:pk>', Dashboard.as_view(), name='dashboard'),
-    path('campanha/fichas', DashboardFichas.as_view(), name='dashboard-fichas'),
+    path('campanha/<int:pk>/fichas', DashboardFichas.as_view(), name='dashboard-fichas'),
     path('campanha/<int:pk>/ficha/criar', FichaCreateView.as_view(), name='ficha-create'),
     path('campanha/ficha/<int:pk>/editar', FichaUpdateView.as_view(), name='ficha-update'),
     path('campanha/<int:pk>/ficha/<int:ficha_pk>/deletar', FichaDeleteView.as_view(), name='ficha-delete'),
