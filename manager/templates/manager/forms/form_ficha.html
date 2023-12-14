@@ -15,51 +15,61 @@
           <div class="ficha-l-side">
 
             <div style="display: none;">
+              
+              {% if personagem %}
+                
+              <select name="campanha" required id="id_campanha">
+                <option value="{{personagem.campanha.id}}" selected>{{personagem.campanha}}</option>
+          </select>
+
+              {% else %}
+                
                 {{form.campanha}}
+              
+              {% endif %}
                 <select name="usuario" required id="id_usuario">
                   <option value="{{request.user.id}}" selected>{{request.user}}</option>
             </select>
             </div>
 
-            <input class="img-input" type="file" name="imagem" accept="image/*" required id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
+            <input class="img-input" value="{{personagem.imagem.url}}" type="file" name="imagem" accept="image/*" required id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
             <img class="ficha-foto" id="selectedImage" src="
-            
             {% if personagem %}
             {{personagem.imagem.url}}
             {% else %}
             https://i.ibb.co/pzkH6gc/placeholder.png
             {% endif %}
             " alt="example placeholder" />
-            <h1 class="ficha-lvl">Lvl.<input type="number" id="id_level" value="{{personagem.level}}" class="level-valor"/></h1>
+            <h1 class="ficha-lvl">Lvl.{{form.level}}</h1>
 
             <div class="ficha-vida">
               <i class="bi bi-heart-pulse-fill"></i>
               <h2>|</h2>
-              <input type="number" value="{{personagem.vida}}" id="id_vida" class="vida-valor" />
+              {{form.vida}}
             </div>
 
             <div class="ficha-pericia">
-              <input type="number" value="{{personagem.forca}}" id="id_forca" class="pericia-valor" />
+              {{form.forca}}
               <h2 class="pericia-info">FORÇA</h2>
             </div>
             <div class="ficha-pericia">
-              <input type="number" value="{{personagem.destreza}}" id="id_destreza" class="pericia-valor" />
+              {{form.destreza}}
               <h2 class="pericia-info">DESTREZA</h2>
             </div>
             <div class="ficha-pericia">
-              <input type="number" value="{{personagem.constituicao}}" id="id_constituicao" class="pericia-valor" />
+              {{form.constituicao}}
               <h2 class="pericia-info">CONSTITUIÇÃO</h2>
             </div>
             <div class="ficha-pericia">
-              <input type="number" value="{{personagem.inteligencia}}" id="id_inteligencia" class="pericia-valor" />
+              {{form.inteligencia}}
               <h2 class="pericia-info">INTELIGÊNCIA</h2>
             </div>
             <div class="ficha-pericia">
-              <input type="number" value="{{personagem.sabedoria}}" id="id_sabedoria" class="pericia-valor" />
+              {{form.sabedoria}}
               <h2 class="pericia-info">SABEDORIA</h2>
             </div>
             <div class="ficha-pericia">
-              <input type="number" value="{{personagem.carisma}}" id="id_carisma" class="pericia-valor" />
+              {{form.carisma}}
               <h2 class="pericia-info">CARISMA</h2>
             </div>
           </div>

@@ -81,7 +81,7 @@ html {
     margin-top: -25px;
 }
 
-.level-valor {
+.ficha-lvl input {
     font-weight: 700;
     background-color: transparent;
     border-style: none;
@@ -115,7 +115,7 @@ html {
     width: 5%;
 }
 
-.ficha-vida .vida-valor{
+.ficha-vida input{
     background-color: transparent;
     border-style: none;
     text-align: center;
@@ -132,7 +132,7 @@ html {
     align-content: center;
 }
 
-.pericia-valor{
+.ficha-pericia input{
     display: flex;
     align-items: center;
     align-content: center;
