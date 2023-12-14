@@ -11,6 +11,10 @@ html {
     color: rgb(236, 77, 77);
 }
 
+a:hover{
+    text-decoration: none;
+}
+
 .area-total {
     display: flex;
     justify-content: center;
@@ -172,7 +176,8 @@ html {
 .voltar a:hover,
 .configuracoes a:hover,
 .botao:hover,
-.botao-1:hover {
+.botao-1:hover, .botao-ativo:hover, .botao-1-ativo:hover {
+    text-decoration: none;
     background-color: #D9C179;
     color: #262424;
     border-radius: 20px;
@@ -294,6 +299,11 @@ html {
     text-decoration: none;
 }
 
+.posts-cabecalho a:hover{
+    text-decoration: none;
+    color: #D9C179;
+}
+
 .post-autor {
     width: 10%;
     display: flex;
@@ -356,10 +366,14 @@ html {
 }
 
 .post-feedback a{
+    cursor: pointer;
     color: white;
     text-decoration: none;
 }
 
+.post-feedback a:hover{
+    color: white;
+}
 
 .area-fichas {
     margin: 20px;

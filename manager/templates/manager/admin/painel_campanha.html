@@ -9,7 +9,7 @@
 
       <div class="area-adm">
         <div class="area-est">
-          <a href="{% url "painel-listar" %}">
+          <a href="{% url 'painel-listar' %}">
             <div class="est">
               <i class="bi bi-person-fill"></i>
               <h2>{{ users.count }}</h2>
@@ -32,14 +32,39 @@
 
             {% for campanha in campanhas %}
               <tr>
-                <td><a style="font-size: 12px;" href="{% url "dashboard" campanha.pk %}">{{ campanha.nome }}</a></td>
+                <td>
+                  <a style="font-size: 12px;" href="{% url 'dashboard' campanha.pk %}">{{ campanha.nome }}</a>
+                </td>
                 <td>{{ campanha.mestre }}</td>
                 <td>{{ campanha.jogador.count }}</td>
                 <td>
-                  <a href=""><i class="bi bi-pencil-square"></i></a>
-                  <a href=""><i class="bi bi-trash3-fill"></i></a>
+                  <a href="{% url 'campanha-editar' campanha.pk %}"><i class="bi bi-pencil-square"></i></a>
+                  <a data-toggle="modal" data-target="#myModal{{ campanha.pk }}" href=""><i class="bi bi-trash3-fill"></i></a>
                 </td>
               </tr>
+              <div class="modal" id="myModal{{ campanha.pk }}">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Excluir {{ campanha.nome }}?</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                      <!-- Form inside the modal -->
+                      <form method="post" enctype="multipart/form-data" action="{% url 'painel-campanha-deletar' campanha.pk %}">
+                        {% csrf_token %}
+                        <p>Deseja realmente excluir a campanha "{{ campanha.nome }}"?</p>
+
+                        <button type="submit" class="btn btn-danger" >Deletar</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             {% endfor %}
           </table>
           <div class="paginator">

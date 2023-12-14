@@ -25,18 +25,13 @@
           <table style="width: 100%; height: 90%;">
             <tr>
               <th style="border-top-left-radius: 20px;">USUÁRIO</th>
-              <th>EMAIL</th>
-              <th style="border-top-right-radius: 20px;">AÇÕES</th>
+              <th style="border-top-right-radius: 20px;">EMAIL</th>
             </tr>
 
             {% for user in users %}
               <tr>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
-                <td>
-                  <a href=""><i class="bi bi-pencil-square"></i></a>
-                  <a href=""><i class="bi bi-trash3-fill"></i></a>
-                </td>
               </tr>
             {% endfor %}
           </table>

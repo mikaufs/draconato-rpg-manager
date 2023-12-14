@@ -6,7 +6,7 @@
   </div>
   <div class="opcoes">
     <a class="botao-1" href="{% url 'dashboard-fichas' campanha.pk %}">Fichas</a>
-    <a class="botao-1" href="">Anotações</a>
+    <a class="botao-1-desativado">Anotações</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
   </div>
@@ -76,8 +76,32 @@
               {% if request.user == postagem.autor %}
                 <hr />
                 <div class="post-feedback">
-                  <a href=""><i class="bi bi-pencil-square"></i></a>
-                  <a data-toggle="modal" data-target="#deleteModal{{ postagem.pk }}" style="color: white;"><i class="bi bi-trash3-fill"></i></a>
+                  <a href="{% url 'postagem-update' postagem.pk %}"><i class="bi bi-pencil-square"></i></a>
+                  <a data-toggle="modal" data-target="#myModal{{ postagem.pk }}" style="color: white;"><i class="bi bi-trash3-fill"></i></a>
+                </div>
+
+                <div class="modal" id="myModal{{ postagem.pk }}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <!-- Modal Header -->
+                      <div class="modal-header">
+                        <h4 class="modal-title">Excluir Postagem?</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+  
+                      <!-- Modal Body -->
+                      <div class="modal-body">
+                        <!-- Form inside the modal -->
+                        <form method="post" enctype="multipart/form-data" action="{% url 'postagem-delete' postagem.pk %}">
+                          {% csrf_token %}
+                          <p>Deseja realmente excluir a campanha "{{ postagem.texto }}"?</p>
+  
+                          <button type="submit" class="btn btn-danger" >Deletar</button>
+                          <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
               {% else %}

@@ -3,11 +3,18 @@
 {% block content %}
   <div class="form">
     <div class="cabecalho">
+      
+      {% if postagem %}
+        
+      <h2>Editar Postagem</h2>
+
+      {% else %}
+        
       <h2>Nova Postagem</h2>
+
+      {% endif %}
     </div>
     <div class="conteudo">
-
-
 
       <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}

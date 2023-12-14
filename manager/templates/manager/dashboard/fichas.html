@@ -6,7 +6,7 @@
   </div>
   <div class="opcoes">
     <a class="botao-1-ativo" href="">Fichas</a>
-    <a class="botao-1" href="">Anotações</a>
+    <a class="botao-1-desativado">Anotações</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
   </div>
@@ -22,7 +22,7 @@
 
       <div class="lista-fichas">
         {% for personagem in personagens %}
-        <div class="selec-char">
+          <div class="selec-char">
             <img src="{{ personagem.imagem.url }}" alt="" />
             <div class="char-info">
               <h2>{{ personagem.nome }}</h2>
@@ -36,14 +36,35 @@
                 <h3><i class="bi bi-person-circle"></i> {{ personagem.usuario }}</h3>
               </div>
             </div>
-            
-          <a href="{% url 'ficha-update' personagem.pk %}">
-            Editar
-          </a>
-          <a data-toggle="modal" data-target="#deleteModal{{ personagem.pk }}">
-            Excluir
-          </a>
-        </div>
+            <div style="display: flex; justify-content: center; align-items: center; align-content: center; flex-direction: column;">
+              <a style="font-size: 15px; color: white;" href="{% url 'ficha-update' personagem.pk %}">Ver/Editar</a>
+              <a style="margin-top: 15px;font-size: 15px ;color: white;" data-toggle="modal" data-target="#myModal{{ personagem.pk }}">Excluir</a>
+            </div>
+          </div>
+
+          <div class="modal" id="myModal{{ personagem.pk }}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Excluir Ficha "{{personagem.nome}}"?</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                  <!-- Form inside the modal -->
+                  <form method="post" enctype="multipart/form-data" action="{% url 'ficha-delete' personagem.pk %}">
+                    {% csrf_token %}
+                    <p>Deseja realmente excluir a ficha "{{ personagem.nome }}"?</p>
+
+                    <button type="submit" class="btn btn-danger" >Deletar</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
 
         {% endfor %}
       </div>

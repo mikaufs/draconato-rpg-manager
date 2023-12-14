@@ -3,10 +3,20 @@
 {% block content %}
   <div class="form">
     <div class="cabecalho">
+      
+      {% if campanha %}
+        
+      <h2>Edição de Campanha</h2>
+
+      {% else %}
+
       <h2>Criação de Campanha</h2>
+
+      {% endif %}
+        
     </div>
     <div class="conteudo">
-      <form method="post" enctype="multipart/form-data" action="{% url 'campanha-criar' %}">
+      <form method="post" enctype="multipart/form-data" action="">
         {% csrf_token %}
         <div class="c1">
           <label for="id_nome">Título:</label>
@@ -30,13 +40,20 @@
         
         <div class="c1" style="align-items: center;">
 
-          <img id="selectedImage" src="https://i.ibb.co/pzkH6gc/placeholder.png" alt="example placeholder" />
+          <img id="selectedImage" src="
+          
+          {% if campanha %}
+            {{campanha.imagem.url}}
+          {% else %}
+          https://i.ibb.co/pzkH6gc/placeholder.png
+          {% endif %}
+          " alt="example placeholder" />
           <input type="file" name="imagem" accept="image/*" required id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
 
           <p style="margin: 20px; margin-top: 10px;">______________________________</p>
 
           <button type="submit" class="botao">Criar Campanha</button>
-          <a class="btn-cancelar" href="{% url 'minhascampanhas' %}">Cancelar</a>
+          <a class="btn-cancelar" href="javascript:history.back()">Cancelar</a>
         </div>
       </form>
     </div>

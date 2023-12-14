@@ -96,6 +96,10 @@ html {
     margin-right: 15px;
 }
 
+.area-est a:hover, .area-est h2:hover{
+    text-decoration: none;
+}
+
 .area-adm a{
     text-decoration: none;
 }
