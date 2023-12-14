@@ -65,7 +65,8 @@
                 {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button style="width: 50%; background-color: white; color: black;" class="" type="submit">Sair</button>
+
+                <a type="submit" style="color: #963838;" class="dropdown-item" href="{% url 'account_logout' %}"><i class="bi bi-box-arrow-left"></i>Sair</a>
             </form>
             </div>
           </div>
