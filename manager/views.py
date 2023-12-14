@@ -73,16 +73,16 @@ class Dashboard(DetailView):
 
         return super().get(request, *args, **kwargs)
     
-class DashboardFichas(DetailView):
+class DashboardFichas(TemplateView):
     template_name = 'manager/dashboard/fichas.html'
     model = Campanha
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        campanha = self.get_object()
+        # campanha = self.get_object()
 
-        context['personagens'] = Personagem.objects.filter(campanha=campanha, usuario=user)
+        context['personagens'] = Personagem.objects.filter(usuario=user)
 
         return context
 
@@ -111,13 +111,13 @@ class FichaUpdateView(UpdateView):
     form_class = PersonagemForm
     success_url = reverse_lazy("dashboard-fichas")
 
-    def get_initial(self):
-        initial = super(FichaUpdateView, self).get_initial()
-        initial['campanha'] = self.kwargs.get('pk')
-        return initial
+    # def get_initial(self):
+    #     initial = super(FichaUpdateView, self).get_initial()
+    #     initial['campanha'] = self.kwargs.get('pk')
+    #     return initial
     
-    def get_success_url(self):
-        return reverse_lazy('dashboard-fichas', args=[self.object.campanha.pk])
+    # def get_success_url(self):
+    #     return reverse_lazy('dashboard-fichas', args=[self.object.campanha.pk])
     
 class FichaDeleteView(DeleteView):
     model = Personagem

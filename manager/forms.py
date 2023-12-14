@@ -32,11 +32,11 @@ class PostagemForm(forms.ModelForm):
         fields = '__all__'
 
 class PersonagemForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super(PersonagemForm, self).__init__(*args, **kwargs)
-        if self.user:
-            self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user))
+    # def __init__(self, *args, **kwargs):
+    #     self.user = kwargs.pop('user', None)
+    #     super(PersonagemForm, self).__init__(*args, **kwargs)
+    #     if self.user:
+    #         self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user))
 
     class Meta:
         model = Personagem
