@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@100;500;700&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@100;500;700;800&family=Poppins&display=swap');
 
 *{
     background-color: #171717;
@@ -122,6 +122,9 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
 }
 
 .area-ext{
@@ -129,6 +132,63 @@
     padding: 20px;
     background-color: #262424;
     border-radius: 25px;
+}
+
+.area-inicio {
+    background-color: #262424;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    height: 450px;
+}
+
+.inicio-content{
+    background-color: #262424;
+    display: flex;
+    justify-content: right;
+    flex-direction: column;
+}
+
+.inicio-content h1{
+    background-color: #262424;
+    width: 450px;
+    font-size: 38px;
+    text-align: right;
+    font-weight: 800;
+    color: #D9D179;
+}
+
+.inicio-content h3{
+    margin-top: 5px;
+    background-color: #262424;
+    color: white;
+    text-align: center;
+    font-size: 15px;
+    width: 450px;
+    height: fit-content;
+    text-align: right;
+}
+
+.inicio-botao{
+    margin-top: 15px;
+    background-color: transparent;
+    display: flex;
+    justify-content: right;
+    text-align: center;
+    width: 100%;
+}
+
+.inicio-botao button{
+    margin-right: 15px;
+    font-weight: 700;
+    color: #262424;
+    background-color: #D9D179;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-style: none;
+    border-radius: 20px;
 }
 
 .area-med{

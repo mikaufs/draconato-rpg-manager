@@ -3,11 +3,21 @@
 {% block content %}
     <div class="ficha">
 
-        <a style="text-decoration: none; color: #D9C179;" href="javascript:history.back()" class="ficha-cabecalho">
-          Voltar
-        </a>
         <div class="ficha-cabecalho">
+          
+          <a style="text-decoration: none; color: #D9C179;" href="javascript:history.back()" class="ficha-cabecalho">
+            Voltar
+          </a>
+
+          {% if personagem %}
+            
+          <h2>{{personagem.usuario}} - Sussuros das Profundezas</h2>
+
+          {% else %}
+            
           <h2>{{request.user}} - Sussuros das Profundezas</h2>
+
+          {% endif %}
         </div>
 
         <form class="ficha-content" enctype="multipart/form-data" method="post">
@@ -27,12 +37,22 @@
                 {{form.campanha}}
               
               {% endif %}
+
+              
+              {% if personagem %}
+                
+              <select name="usuario" required id="id_usuario">
+                <option value="{{request.user.id}}" selected>{{request.user}}</option>
+          </select>
+
+              {% endif %}
+                
                 <select name="usuario" required id="id_usuario">
                   <option value="{{request.user.id}}" selected>{{request.user}}</option>
             </select>
             </div>
 
-            <input class="img-input" value="{{personagem.imagem.url}}" type="file" name="imagem" accept="image/*" required id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
+            <input class="img-input" value="{{personagem.imagem.url}}" type="file" name="imagem" accept="image/*" id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
             <img class="ficha-foto" id="selectedImage" src="
             {% if personagem %}
             {{personagem.imagem.url}}

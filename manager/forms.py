@@ -7,12 +7,16 @@ from django.db.models import Q
 class CampanhaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
+        mestre = kwargs.pop('mestre', None)
         super(CampanhaForm, self).__init__(*args, **kwargs)
 
         queryset = User.objects.exclude(is_superuser=True)
-        
+
         if user and user.is_authenticated:
             queryset = queryset.exclude(pk=user.pk)
+
+        if mestre:
+            queryset = queryset.exclude(pk=mestre.pk)
 
         self.fields['jogador'].queryset = queryset
 
@@ -25,7 +29,7 @@ class PostagemForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(PostagemForm, self).__init__(*args, **kwargs)
         if self.user:
-            self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user))
+            self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user)).distinct()
 
     class Meta:
         model = Postagem
@@ -36,7 +40,7 @@ class PersonagemForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(PersonagemForm, self).__init__(*args, **kwargs)
         if self.user:
-            self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user))
+            self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user)).distinct()
 
     class Meta:
         model = Personagem

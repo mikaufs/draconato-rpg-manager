@@ -11,7 +11,7 @@ from django.http import HttpResponseForbidden
 
 # - - - - - - - - - - # Minhas Campanhas # - - - - - - - - - - #
 
-class ListarMCampanhas(ListView):
+class ListarMCampanhas(LoginRequiredMixin ,ListView):
     template_name = "manager/minhas_campanhas.html"
     model = Campanha
     context_object_name = 'campanhas'
@@ -22,13 +22,13 @@ class ListarMCampanhas(ListView):
         user = self.request.user
 
         if search:
-            campanhas = Campanha.objects.filter(Q(nome__icontains=search) & (Q(mestre=user) | Q(jogador=user)))
+            campanhas = Campanha.objects.filter(Q(nome__icontains=search) & (Q(mestre=user) | Q(jogador=user))).distinct()
         else:
-            campanhas = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
+            campanhas = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user)).distinct()
 
         return campanhas
 
-class CampanhaCreate(CreateView):
+class CampanhaCreate(LoginRequiredMixin, CreateView):
     model = Campanha
     form_class = CampanhaForm
     template_name = "manager/forms/form_campanha.html"
@@ -39,21 +39,55 @@ class CampanhaCreate(CreateView):
         form = CampanhaForm(user=request.user if request.user.is_authenticated else None)
         return render(request, self.template_name, {'form': form})
 
-class CampanhaUpdate(UpdateView):
+class CampanhaUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Campanha
     form_class = CampanhaForm
     template_name = "manager/forms/form_campanha.html"
     success_url = reverse_lazy("minhascampanhas")
 
-class CampanhaDelete(DeleteView):
+    def test_func(self):
+        campanha = self.get_object()
+        is_mestre = self.request.user == campanha.mestre
+        return (
+            is_mestre or
+            self.request.user.is_superuser
+        )
+
+    def get_form_kwargs(self):
+        kwargs = super(CampanhaUpdate, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        kwargs['mestre'] = self.object.mestre
+        return kwargs
+
+class CampanhaDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Campanha
     template_name = "manager/messages/campanha_delete.html"
     success_url = reverse_lazy("minhascampanhas")
 
-class CampanhaDeletePainel(DeleteView):
+    def test_func(self):
+        campanha = self.get_object()
+        is_mestre = self.request.user == campanha.mestre
+        return (
+            is_mestre or
+            self.request.user.is_superuser
+        )
+
+class CampanhaDeletePainel(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Campanha
     template_name = "manager/messages/campanha_delete.html"
     success_url = reverse_lazy("painel-campanhas")
+
+    def test_func(self):
+        campanha = self.get_object()
+        return self.request.user == campanha.mestre or self.request.user.is_superuser
+    
+    def test_func(self):
+        campanha = self.get_object()
+        is_mestre = self.request.user == campanha.mestre
+        return (
+            is_mestre or
+            self.request.user.is_superuser
+        )
 
 # - - - - - - - - - - # Página Inicial # - - - - - - - - - - #
 
@@ -65,12 +99,12 @@ class ListarInicio(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
+        queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user)).distinct()
         return queryset
-
+    
 # - - - - - - - - - - # DASHBOARD # - - - - - - - - - - #
 
-class Dashboard(DetailView):
+class Dashboard(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     template_name = "manager/dashboard/dashboard.html"
     model = Campanha
 
@@ -89,7 +123,18 @@ class Dashboard(DetailView):
 
         return super().get(request, *args, **kwargs)
     
-class DashboardFichas(DetailView):
+    def test_func(self):
+        campanha = self.get_object()
+        is_mestre = self.request.user == campanha.mestre
+        is_jogador = self.request.user in campanha.jogador.all()
+        return (
+            is_mestre or
+            is_jogador or
+            self.request.user.is_superuser
+        )
+
+    
+class DashboardFichas(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     template_name = 'manager/dashboard/fichas.html'
     model = Campanha
 
@@ -98,11 +143,26 @@ class DashboardFichas(DetailView):
         user = self.request.user
         campanha = self.get_object()
 
-        context['personagens'] = Personagem.objects.filter(campanha=campanha, usuario=user)
+        is_mestre = campanha.mestre == user
+
+        if is_mestre:
+            context['personagens'] = Personagem.objects.filter(campanha=campanha)
+        else:
+            context['personagens'] = Personagem.objects.filter(campanha=campanha, usuario=user)
 
         return context
+    
+    def test_func(self):
+        campanha = self.get_object()
+        is_mestre = self.request.user == campanha.mestre
+        is_jogador = self.request.user in campanha.jogador.all()
+        return (
+            is_mestre or
+            is_jogador or
+            self.request.user.is_superuser
+        )
 
-class FichaCreateView(CreateView):
+class FichaCreateView(LoginRequiredMixin, CreateView):
     model = Personagem
     template_name = "manager/forms/form_ficha.html"
     form_class = PersonagemForm
@@ -120,8 +180,12 @@ class FichaCreateView(CreateView):
     
     def get_success_url(self):
         return reverse_lazy('dashboard-fichas', args=[self.object.campanha.pk])
+    
+    def test_func(self):
+        personagem = self.get_object()
+        return self.request.user == personagem.usuario or self.request.user == personagem.campanha.mestre or self.request.user.is_superuser
 
-class FichaUpdateView(UpdateView):
+class FichaUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Personagem
     template_name = "manager/forms/form_ficha.html"
     form_class = PersonagemForm
@@ -135,7 +199,11 @@ class FichaUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('dashboard-fichas', args=[self.object.campanha.pk])
     
-class FichaDeleteView(DeleteView):
+    def test_func(self):
+        personagem = self.get_object()
+        return self.request.user == personagem.usuario or self.request.user == personagem.campanha.mestre or self.request.user.is_superuser
+    
+class FichaDeleteView(LoginRequiredMixin, DeleteView):
     model = Personagem
     template_name = 'manager/messages/ficha_delete.html'
     success_url = reverse_lazy('dashboard-fichas')
@@ -177,7 +245,7 @@ class ListarPainelCampanhasADM(UserPassesTestMixin, ListView):
 
 # - - - - - - - - - - # CRUD - Postagem (DASHBOARD) # - - - - - - - - - - #
 
-class PostagemCreateView(CreateView):
+class PostagemCreateView(LoginRequiredMixin, CreateView):
     model = Postagem
     template_name = "manager/forms/form_postagem.html"
     form_class = PostagemForm
@@ -196,7 +264,7 @@ class PostagemCreateView(CreateView):
     def get_success_url(self):
         return reverse_lazy('dashboard', args=[self.object.campanha.pk])
     
-class PostagemUpdateView(UpdateView):
+class PostagemUpdateView(LoginRequiredMixin, UpdateView):
     model = Postagem
     template_name = "manager/forms/form_postagem.html"
     form_class = PostagemForm
@@ -205,7 +273,7 @@ class PostagemUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('dashboard', args=[self.object.campanha.pk])
     
-class PostagemDeleteView(DeleteView):
+class PostagemDeleteView(LoginRequiredMixin,DeleteView):
     model = Postagem
     template_name = "manager/messages/postagem_delete.html"
     success_url = reverse_lazy("dashboard")

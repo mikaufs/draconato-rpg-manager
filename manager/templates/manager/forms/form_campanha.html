@@ -48,14 +48,57 @@
           https://i.ibb.co/pzkH6gc/placeholder.png
           {% endif %}
           " alt="example placeholder" />
-          <input type="file" name="imagem" accept="image/*" required id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
+          <input type="file" name="imagem" accept="image/*" id="id_imagem" onchange="displaySelectedImage(event, 'selectedImage')">
 
           <p style="margin: 20px; margin-top: 10px;">______________________________</p>
 
+          
+          {% if campanha %}
+            
+          <button type="submit" class="botao">Editar Campanha</button>
+
+          <a style="color: red;" class="btn-cancelar" data-toggle="modal" data-target="#myModal{{ campanha.pk }}" href="">Excluir Campanha</a>
+
+          {% else %}
+          
           <button type="submit" class="botao">Criar Campanha</button>
+
+          {% endif %}
+
           <a class="btn-cancelar" href="javascript:history.back()">Cancelar</a>
-        </div>
+
       </form>
     </div>
   </div>
+  {% if campanha %}
+  <div class="modal" id="myModal{{ campanha.pk }}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Excluir {{ campanha.nome }}?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <!-- Form inside the modal -->
+          <form style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data" action="{% url 'campanha-deletar' campanha.pk %}">
+            {% csrf_token %}
+            <p>Deseja realmente excluir a campanha "{{ campanha.nome }}"?</p>
+
+            <div class="modal-footer">
+
+            <button type="submit" class="btn btn-danger" >Deletar</button>
+            <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endif %}
+</div>
 {% endblock %}

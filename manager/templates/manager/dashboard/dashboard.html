@@ -6,12 +6,41 @@
   </div>
   <div class="opcoes">
     <a class="botao-1" href="{% url 'dashboard-fichas' campanha.pk %}">Fichas</a>
-    <a class="botao-1-desativado">Anotações</a>
+    <a style="color: #4C4B4B" class="botao-1-desativado">Anotações</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
   </div>
-  <div class="configuracoes">
-    <a href=""><i class="bi bi-gear-fill"></i></a>
+  <div class="
+  
+  
+  {% if request.user != campanha.mestre %}
+    
+  configuracoes-desativado
+
+  {% else %}
+    
+  configuracoes
+
+  {% endif %}
+  
+  ">
+    <a 
+    
+    {% if request.user == campanha.mestre %}
+      
+    href="{% url "campanha-editar" campanha.pk %}"
+
+    {% endif %}
+
+    ><i
+    
+    {% if request.user != campanha.mestre %}
+      
+    style="color: #4C4B4B;"
+
+    {% endif %}
+    
+    class="bi bi-gear-fill"></i></a>
   </div>
 {% endblock %}
 
@@ -46,7 +75,7 @@
       <div class="area-posts">
         <div class="posts-cabecalho">
           <h2>Mural da Campanha</h2>
-          <a href="{% url 'postagem-criar' campanha.pk %}">Criar Postagem</a>
+          <a href="{% url 'postagem-criar' campanha.id %}">Criar Postagem</a>
         </div>
         <div class="posts">
           {% for postagem in postagens %}
@@ -92,12 +121,15 @@
                       <!-- Modal Body -->
                       <div class="modal-body">
                         <!-- Form inside the modal -->
-                        <form method="post" enctype="multipart/form-data" action="{% url 'postagem-delete' postagem.pk %}">
+                        <form style="display: flex; flex-direction: column;" method="post" enctype="multipart/form-data" action="{% url 'postagem-delete' postagem.pk %}">
                           {% csrf_token %}
-                          <p>Deseja realmente excluir a campanha "{{ postagem.texto }}"?</p>
-  
-                          <button type="submit" class="btn btn-danger" >Deletar</button>
-                          <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                          <p>Deseja realmente excluir a postagem "{{ postagem.texto }}"?</p>
+                          <div class="modal-footer">
+
+                            <button type="submit" class="btn btn-danger" >Deletar</button>
+                            <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            
+                          </div>
                         </form>
                       </div>
                     </div>
