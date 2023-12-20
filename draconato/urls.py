@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from manager.views import ListarInicio, ListarMCampanhas, CampanhaCreate, CampanhaUpdate, CampanhaDelete, CampanhaDeletePainel,Dashboard, DashboardFichas, FichaCreateView, FichaUpdateView, FichaDeleteView, ListarPainelADM, ListarPainelCampanhasADM, PostagemCreateView, PostagemDeleteView, PostagemUpdateView
+from manager.views import ListarInicio, ListarMCampanhas, CampanhaCreate, CampanhaUpdate, CampanhaDelete, CampanhaDeletePainel,Dashboard, DashboardFichas, DashboardAnotacoes, FichaCreateView, FichaUpdateView, FichaDeleteView, ListarPainelADM, ListarPainelCampanhasADM, PostagemCreateView, PostagemDeleteView, PostagemUpdateView, AnotacaoCreateView, AnotacaoUpdateView, AnotacaoDeleteView
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -24,6 +24,11 @@ urlpatterns = [
     path('campanha/<int:pk>/postagem/criar', PostagemCreateView.as_view(), name='postagem-criar'),
     path('campanha/postagem/excluir/<int:pk>', PostagemDeleteView.as_view(), name='postagem-delete'),
     path('campanha/postagem/editar/<int:pk>', PostagemUpdateView.as_view(), name='postagem-update'),
+
+    path('campanha/<int:pk>/anotacoes', DashboardAnotacoes.as_view(), name='dashboard-anotacoes'),
+    path('campanha/<int:pk>/anotacao/criar', AnotacaoCreateView.as_view(), name='anotacao-create'),
+    path('campanha/anotacao/editar/<int:pk>', AnotacaoUpdateView.as_view(), name='anotacao-update'),
+    path('campanha/anotacao/deletar/<int:pk>', AnotacaoDeleteView.as_view(), name='anotacao-delete'),
 
     path('painel/usuarios', ListarPainelADM.as_view(), name='painel-listar'),
     path('painel/campanhas', ListarPainelCampanhasADM.as_view(), name='painel-campanhas'),

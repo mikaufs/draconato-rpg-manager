@@ -1,0 +1,104 @@
+{% extends 'base_dashboard.html' %}
+
+{% block nav %}
+  <div class="mural">
+    <a class="botao" href="{% url 'dashboard' campanha.pk %}">Mural</a>
+  </div>
+  <div class="opcoes">
+    <a class="botao-1" href="{% url 'dashboard-fichas' campanha.pk %}">Fichas</a>
+    <a class="botao-1-ativo">Anotações</a>
+    <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
+    <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
+  </div>
+  <div class="
+  
+  
+  {% if request.user != campanha.mestre %}
+    
+  configuracoes-desativado
+
+  {% else %}
+    
+  configuracoes
+
+  {% endif %}
+  
+  ">
+    <a 
+    
+    {% if request.user == campanha.mestre %}
+      
+    href="{% url "campanha-editar" campanha.pk %}"
+
+    {% endif %}
+
+    ><i
+    
+    {% if request.user != campanha.mestre %}
+      
+    style="color: #4C4B4B;"
+
+    {% endif %}
+    
+    class="bi bi-gear-fill"></i></a>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="area-fichas">
+    <div class="af-l-side">
+      <a href="{% url 'anotacao-create' campanha.pk %}" style="width: 280px;" class="criar-ficha">Criar uma nova anotação</a>
+
+      <div class="lista-anotacoes">
+        {% for anotacao in anotacoes %}
+          <a style="cursor: pointer;" data-toggle="modal" data-target="#myModal{{ anotacao.pk }}" class="anotacao">
+            <div class="a-autor">
+              <i class="bi bi-person-circle"></i>
+              {{anotacao.autor}}
+            </div>
+            <h3 class="a-titulo">{{ anotacao.titulo }}</h3>
+            <h3 class="a-status">
+              
+              {% if request.user in anotacao.visibilidade.all %}
+              <i class="bi bi-link-45deg"></i>
+              {% endif %}
+                
+            </h3>
+          </a>
+
+          <div class="modal" id="myModal{{ anotacao.pk }}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">{{anotacao.titulo}} - {{anotacao.autor}}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                  <!-- Form inside the modal -->
+                  <form method="post" enctype="multipart/form-data" action="{% url 'anotacao-delete' anotacao.pk %}">
+                    {% csrf_token %}
+                    <p>{{anotacao.texto}}</p>
+
+                    
+                    {% if request.user == anotacao.autor %}
+                      
+                    <button type="submit" class="btn btn-danger" >Deletar</button>
+
+                    <a href="{% url "anotacao-update" anotacao.pk %}" class="btn btn-primary" >Editar</a>
+
+                    {% endif %}
+                      
+                    <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

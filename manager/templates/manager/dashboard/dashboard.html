@@ -6,7 +6,7 @@
   </div>
   <div class="opcoes">
     <a class="botao-1" href="{% url 'dashboard-fichas' campanha.pk %}">Fichas</a>
-    <a style="color: #4C4B4B" class="botao-1-desativado">Anotações</a>
+    <a class="botao-1" href="{% url "dashboard-anotacoes" campanha.pk %}">Anotações</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
   </div>

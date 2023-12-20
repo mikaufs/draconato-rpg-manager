@@ -6,12 +6,41 @@
   </div>
   <div class="opcoes">
     <a class="botao-1-ativo" href="">Fichas</a>
-    <a style="color: #4C4B4B" class="botao-1-desativado">Anotações</a>
+    <a class="botao-1" href="{% url "dashboard-anotacoes" campanha.pk %}">Anotações</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Imagens</a>
     <a style="color: #4C4B4B;" class="botao-1-desativado">Músicas</a>
   </div>
-  <div class="configuracoes">
-    <a href=""><i class="bi bi-gear-fill"></i></a>
+  <div class="
+  
+  
+  {% if request.user != campanha.mestre %}
+    
+  configuracoes-desativado
+
+  {% else %}
+    
+  configuracoes
+
+  {% endif %}
+  
+  ">
+    <a 
+    
+    {% if request.user == campanha.mestre %}
+      
+    href="{% url "campanha-editar" campanha.pk %}"
+
+    {% endif %}
+
+    ><i
+    
+    {% if request.user != campanha.mestre %}
+      
+    style="color: #4C4B4B;"
+
+    {% endif %}
+    
+    class="bi bi-gear-fill"></i></a>
   </div>
 {% endblock %}
 

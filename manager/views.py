@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Campanha, Anotacao, Personagem, Postagem
 from django.contrib.auth.models import User
-from .forms import CampanhaForm, PostagemForm, PersonagemForm
+from .forms import CampanhaForm, PostagemForm, PersonagemForm, AnotacaoForm
 from django.views.generic import ListView,CreateView,DeleteView,DetailView, UpdateView,TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -132,7 +132,6 @@ class Dashboard(LoginRequiredMixin, UserPassesTestMixin, DetailView):
             is_jogador or
             self.request.user.is_superuser
         )
-
     
 class DashboardFichas(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     template_name = 'manager/dashboard/fichas.html'
@@ -151,6 +150,45 @@ class DashboardFichas(LoginRequiredMixin, UserPassesTestMixin, DetailView):
             context['personagens'] = Personagem.objects.filter(campanha=campanha, usuario=user)
 
         return context
+    
+    def test_func(self):
+        campanha = self.get_object()
+        is_mestre = self.request.user == campanha.mestre
+        is_jogador = self.request.user in campanha.jogador.all()
+        return (
+            is_mestre or
+            is_jogador or
+            self.request.user.is_superuser
+        )
+    
+class DashboardAnotacoes(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    template_name = "manager/dashboard/anotacoes.html"
+    model = Campanha
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        campanha = self.get_object()
+
+        todas_anotacoes = Anotacao.objects.filter(campanha=campanha)
+
+        user = self.request.user
+
+        anotacoes_filtradas = todas_anotacoes.filter(
+            Q(autor=user) | Q(visibilidade=user)
+        ).order_by('-data_anotacao').distinct()
+
+        context['anotacoes'] = anotacoes_filtradas
+        return context
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        queryset = Campanha.objects.filter(Q(mestre=user) | Q(jogador=user))
+
+        if not queryset.exists():
+            return reverse_lazy('index')
+
+        return super().get(request, *args, **kwargs)
     
     def test_func(self):
         campanha = self.get_object()
@@ -280,3 +318,41 @@ class PostagemDeleteView(LoginRequiredMixin,DeleteView):
     
     def get_success_url(self):
         return reverse_lazy('dashboard', args=[self.object.campanha.pk])
+    
+# - - - - - - - - - - # CRUD - Anotações (DASHBOARD) # - - - - - - - - - - #
+    
+class AnotacaoCreateView(LoginRequiredMixin, CreateView):
+    model = Anotacao
+    template_name = "manager/forms/form_anotacao.html"
+    form_class = AnotacaoForm
+    success_url = reverse_lazy("dashboard")
+
+    def get_form_kwargs(self):
+        kwargs = super(AnotacaoCreateView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def get_initial(self):
+        initial = super(AnotacaoCreateView, self).get_initial()
+        initial['campanha'] = self.kwargs.get('pk')
+        return initial
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard-anotacoes', args=[self.object.campanha.pk])
+    
+class AnotacaoUpdateView(LoginRequiredMixin, UpdateView):
+    model = Anotacao
+    template_name = "manager/forms/form_anotacao.html"
+    form_class = AnotacaoForm
+    success_url = reverse_lazy("dashboard")
+
+    def get_success_url(self):
+        return reverse_lazy('dashboard-anotacoes', args=[self.object.campanha.pk])
+    
+class AnotacaoDeleteView(LoginRequiredMixin,DeleteView):
+    model = Anotacao
+    template_name = "manager/messages/anotacao_delete.html"
+    success_url = reverse_lazy("dashboard")
+    
+    def get_success_url(self):
+        return reverse_lazy('dashboard-anotacoes', args=[self.object.campanha.pk])

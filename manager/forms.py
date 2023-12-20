@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Campanha, Postagem, Personagem
+from .models import Campanha, Postagem, Personagem, Anotacao
 from django.contrib.auth import get_user
 from django.db.models import Q
 
@@ -44,4 +44,25 @@ class PersonagemForm(forms.ModelForm):
 
     class Meta:
         model = Personagem
+        fields = '__all__'
+
+class AnotacaoForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        
+        self.user = kwargs.pop('user', None)
+        super(AnotacaoForm, self).__init__(*args, **kwargs)
+        if self.user:
+            self.fields['campanha'].queryset = Campanha.objects.filter(Q(mestre=self.user) | Q(jogador=self.user)).distinct()
+
+        queryset = User.objects.exclude(is_superuser=True)
+
+        user = self.user
+
+        if user and user.is_authenticated:
+            queryset = queryset.exclude(pk=user.pk)
+
+        self.fields['visibilidade'].queryset = queryset
+
+    class Meta:
+        model = Anotacao
         fields = '__all__'

@@ -23,6 +23,7 @@ class Anotacao(models.Model):
     campanha = models.ForeignKey(Campanha,on_delete=models.CASCADE)
     autor = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100)
+    data_anotacao = models.DateField(auto_now_add=True)
     texto = models.TextField()
     visibilidade = models.ManyToManyField(get_user_model(), blank=True, related_name='anotacoes_visiveis')
 

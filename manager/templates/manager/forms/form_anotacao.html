@@ -1,0 +1,47 @@
+{% extends 'base_form.html' %}
+
+{% block content %}
+  <div class="form">
+    <div class="cabecalho">
+      
+      {% if anotacao %}
+        
+      <h2>Editar Anotacao</h2>
+
+      {% else %}
+        
+      <h2>Nova Anotacao</h2>
+
+      {% endif %}
+    </div>
+    <div class="conteudo">
+
+      <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+
+        <div class="c1">
+          <div style="display: none;">
+            {{ form.campanha }}
+          </div>
+          <div style="display: none;">
+            <select name="autor" required id="id_autor">
+              <option value="{{ request.user.id }}" selected>{{ request.user }}</option>
+            </select>
+          </div>
+
+          <label for="id_titulo">Título:</label>
+          {{ form.titulo }}
+
+          <label for="id_texto">Texto:</label>
+          {{ form.texto }}
+
+          <label for="id_visibilidade">Compartilhar com:</label>
+          {{ form.visibilidade }}
+
+          <button type="submit" class="botao">Enviar</button>
+          <a class="btn-cancelar" href="javascript:history.back()">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

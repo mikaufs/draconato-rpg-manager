@@ -438,6 +438,13 @@ a:hover{
     border-radius: 20px;
 }
 
+.lista-anotacoes{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 88.5%;
+    width: 100%;
+}
+
 .af-r-side{
     border-radius: 20px;
     background-color: #171717;
@@ -762,6 +769,41 @@ a:hover{
     border-radius: 20px;
     margin-top: 20px;
     font-size: 15px;
+}
+
+.anotacao{
+    background-color: #171717;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    height: 50px;
+}
+
+.a-autor{
+    text-align: center;
+    color: #D9C179;
+    font-size: 15px;
+    margin-bottom: 0;
+    width: 25%;
+}
+
+.a-titulo{
+    font-size: 16px;
+    color: #D9C179;
+    margin-bottom: 0;
+    width: 65%;
+}
+
+.a-status{
+    color: #D9C179;
+    font-size: 25px;
+    margin-bottom: 0;
+    width: 10%;
 }
 
 /* width */
