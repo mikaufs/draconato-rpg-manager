@@ -21,8 +21,8 @@ class Campanha(models.Model):
 
 class Anotacao(models.Model):
     campanha = models.ForeignKey(Campanha,on_delete=models.CASCADE)
-    titulo = models.CharField(max_length=100)
     autor = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=100)
     texto = models.TextField()
     visibilidade = models.ManyToManyField(get_user_model(), blank=True, related_name='anotacoes_visiveis')
 
@@ -33,7 +33,7 @@ class Personagem(models.Model):
     campanha = models.ForeignKey(Campanha, on_delete=models.CASCADE)
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
-    nome = models.CharField(max_length=100, default='nada')
+    nome = models.CharField(max_length=100, default='Sem nome')
     imagem = models.ImageField(upload_to='images/personagem')
     level = models.IntegerField(blank=True, default='0')
     ca = models.IntegerField(blank=True, default='0')
@@ -62,7 +62,6 @@ class Postagem(models.Model):
     texto = models.TextField()
     data_postagem = models.DateField(auto_now_add=True)
     hora_criacao = models.TimeField(auto_now_add=True)
-
 
     def __str__(self):
         return self.texto
